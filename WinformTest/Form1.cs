@@ -250,19 +250,6 @@ namespace WinformTest
             }
         }
 
-        // 방 상태 변경
-        private void RoomStatusUpdate(int group, int room, string status)
-        {
-            Console.WriteLine(" ================================== RoomStatusUpdate ==========================");
-            Console.WriteLine("group = " + group);
-            Console.WriteLine("room = " + room);
-            Console.WriteLine("status = " + status);
-            string groupStr = group.ToString();
-            string roomStr = room.ToString();
-
-            preset = dbc.UpdateRoomStatus(status, groupStr, roomStr);
-        }
-
         private void SettingRoom()
         {
             DataTable roomDataTable = dbc.GetRoomList(selectGroupCode, null);

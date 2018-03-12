@@ -122,55 +122,60 @@ namespace WinformTest
             return groupDataTable;
         }
 
-        public string UpdateRoomStatus(string status, string groupStr, string roomStr)
-        {
-            string preset = "";
-            string sql = "";
-            sql += "UPDATE room_info ";
-            sql += "SET ";
-            if (status.Equals("O"))
-            {
-                sql += "room_status = 'O', ";
-                sql += "room_open_time = now() ";
-
-                //preset 조정
-                preset = "2";
-            }
-            else if (status.Equals("C"))
-            {
-                sql += "room_status = 'C', ";
-                sql += "room_close_time = now() ";
-
-                //preset 조정
-                preset = "1";
-            }
-            sql += "WHERE ";
-            sql += "group_code = 'G" + util.ReturnIntToString(groupStr) + "' AND room_code = 'R" + util.ReturnIntToString(roomStr) + "'";
-            Update(sql);
-            return preset;
-        }
-
         public DataTable GetRoomList(string groupCode, string roomCode)
         {
             string sql = "";
             sql += "SELECT ";
-            sql += "    group_code  AS group_code, ";
-            sql += "    room_code   AS room_code, ";
-            sql += "    room_name   AS room_name, ";
-            sql += "    room_status AS room_status ";
-            sql += "FROM room_info ";
-            sql += "WHERE 1=1"; 
-            sql += "AND group_code = '" + groupCode + "'";
-
+            sql += "  A.group_code                        AS group_code, ";
+            sql += "  (SELECT G.group_name ";
+            sql += "   FROM group_info G ";
+            sql += "   WHERE G.group_code = A.group_code) AS group_name, ";
+            sql += "  A.room_code                         AS room_code, ";
+            sql += "  A.room_name                         AS room_name, ";
+            sql += "  A.room_status AS room_status, ";
+            sql += "  (CASE WHEN A.room_status = 'O' ";
+            sql += "    THEN '열림' ";
+            sql += "   ELSE '닫힘' ";
+            sql += "   END)                               AS room_status_name, ";
+            sql += "  (CASE WHEN A.room_status = 'O' ";
+            sql += "    THEN to_char(A.room_open_time, 'YYYY-MM-DD HH24:MI:SS') ";
+            sql += "   ELSE to_char(A.room_close_time, 'YYYY-MM-DD HH24:MI:SS') ";
+            sql += "   END)                               AS updat_time ";
+            sql += "FROM room_info A ";
+            sql += "WHERE 1 = 1 ";
+            sql += "      AND A.group_code = '" + groupCode + "' ";
             if (!string.IsNullOrEmpty(roomCode))
             {
-                sql += "AND room_code = '" + roomCode + "'";
+                sql += "      AND A.room_code = '" + roomCode + "' ";
             }
-
-            sql += "ORDER BY room_code ASC";
+            sql += "ORDER BY A.room_code ASC";
 
             DataTable roomDataTable = SelectDataTable(sql);
             return roomDataTable;
+        }
+
+        public DataTable UpdateRoomStatus(string groupCode, string roomCode, string roomStatus)
+        {
+            string sql = "";
+            sql += "UPDATE room_info ";
+            sql += "SET ";
+            if (roomStatus.Equals("O"))
+            {
+                sql += "room_status = 'O', ";
+                sql += "room_open_time = now() ";
+            }
+            else if (roomStatus.Equals("C"))
+            {
+                sql += "room_status = 'C', ";
+                sql += "room_close_time = now() ";
+            }
+            sql += "WHERE ";
+            sql += "group_code = '" + groupCode + "' AND room_code = '" + roomCode + "'";
+
+            Update(sql);
+
+            DataTable roomDatatable = GetRoomList(groupCode, roomCode);
+            return roomDatatable;
         }
     }
 }

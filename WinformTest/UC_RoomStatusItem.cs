@@ -49,11 +49,16 @@ namespace WinformTest
         public event EventHandler RoomItemClick;
         private void room_panel_Click(object sender, EventArgs e)
         {
+            DataTable roomDataTable = RoomStatusChange();
+            DataRow[] rows = roomDataTable.Select();
             JObject json = new JObject();
-            json.Add("groupCode", this.groupCode);
-            json.Add("roomCode", this.roomCode);
-            json.Add("roomName", this.roomName);
-            json.Add("roomStatus", this.roomStatus);
+            json.Add("groupCode", rows[0]["group_code"].ToString());
+            json.Add("groupName", rows[0]["group_name"].ToString());
+            json.Add("roomName", rows[0]["room_name"].ToString());
+            json.Add("roomCode", rows[0]["room_code"].ToString());
+            json.Add("roomStatusName", rows[0]["room_status_name"].ToString());
+            json.Add("updatTime", rows[0]["updat_time"].ToString());
+
             this.RoomItemClick(json, new EventArgs());
         }
 
@@ -67,6 +72,24 @@ namespace WinformTest
             {
                 room_panel.BackColor = util.GetRGBColor(45, 45, 45);
             }
+        }
+
+        private DataTable RoomStatusChange()
+        {
+            dbc.Open();
+            if (this.roomStatus.Equals("O"))
+            {
+                this.roomStatus = "C";
+            }
+            else
+            {
+                this.roomStatus = "O";
+            }
+
+            RoomColorChange(this.roomStatus);
+            DataTable roomDataTable = dbc.UpdateRoomStatus(this.groupCode, this.roomCode, this.roomStatus);
+            dbc.Close();
+            return roomDataTable;
         }
     }
 }
