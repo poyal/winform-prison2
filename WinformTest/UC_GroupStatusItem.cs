@@ -47,6 +47,16 @@ namespace WinformTest
             ChangeGroupColor(this.openCnt);
         }
 
+        public void UpdateGroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt)
+        {
+
+        }
+        
+        public string GetGroupCode()
+        {
+            return this.groupCode;
+        }
+
         /// <summary>
         /// 
         /// 현재열린 문의 갯수에따라 색변경

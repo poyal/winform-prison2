@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 
@@ -59,7 +54,7 @@ namespace WinformTest
             json.Add("roomStatus", rows[0]["room_status"].ToString());
             json.Add("roomStatusName", rows[0]["room_status_name"].ToString());
             json.Add("updatTime", rows[0]["updat_time"].ToString());
-
+            json.Add("preset", rows[0]["preset"].ToString());
             this.RoomItemClick(json, new EventArgs());
         }
 

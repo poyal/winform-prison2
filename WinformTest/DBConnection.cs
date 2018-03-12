@@ -140,7 +140,8 @@ namespace WinformTest
             sql += "  (CASE WHEN A.room_status = 'O' ";
             sql += "    THEN to_char(A.room_open_time, 'YYYY-MM-DD HH24:MI:SS') ";
             sql += "   ELSE to_char(A.room_close_time, 'YYYY-MM-DD HH24:MI:SS') ";
-            sql += "   END)                               AS updat_time ";
+            sql += "   END)                               AS updat_time, ";
+            sql += "  A.preset                            AS preset ";
             sql += "FROM room_info A ";
             sql += "WHERE 1 = 1 ";
             sql += "      AND A.group_code = '" + groupCode + "' ";
