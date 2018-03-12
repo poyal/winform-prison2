@@ -98,24 +98,30 @@ namespace WinformTest
                     UC_GroupStatusItem groupControl = control as UC_GroupStatusItem;
                     string controlGroupCode = groupControl.GetGroupCode();
 
-                    string groupCode;
-                    string groupName;
-                    string openCnt;
-                    string groupInmates;
-                    string roomCnt;
-                    string doorCnt;
-                    string cameraCnt;
+                    string groupCode = "";
+                    string groupName = "";
+                    string openCnt = "";
+                    string groupInmates = "";
+                    string roomCnt = "";
+                    string doorCnt = "";
+                    string cameraCnt = "";
 
 
                     foreach (DataRow row in groupDataTable.Rows)
                     {
-                        if(controlGroupCode.Equals(row["group_code"].ToString()))
+                        if (controlGroupCode.Equals(row["group_code"].ToString()))
                         {
                             groupCode = row["group_code"].ToString();
+                            groupName = row["group_name"].ToString();
+                            openCnt = row["open_cnt"].ToString();
+                            groupInmates = row["group_inmates"].ToString();
+                            roomCnt = row["room_cnt"].ToString();
+                            doorCnt = row["door_cnt"].ToString();
+                            cameraCnt = row["camera_cnt"].ToString();
                         }
                     }
 
-                    
+                    groupControl.UpdateGroupStatusItem(groupCode, groupName, openCnt, groupInmates, roomCnt, doorCnt, cameraCnt);
                 }
             }
         }
@@ -267,15 +273,15 @@ namespace WinformTest
                         //string status = "";
                         //if (data.Trim() == "1")
                         //{
-                            //status = "C";
-                            //RoomStatusUpdate(1, 1, status);
-                            //SensorSignalCollector(1, 1, status);
+                        //status = "C";
+                        //RoomStatusUpdate(1, 1, status);
+                        //SensorSignalCollector(1, 1, status);
                         //}
                         //else if (data.Trim() == "0")
                         //{
-                            //status = "O";
-                            //RoomStatusUpdate(1, 1, status);
-                            //SensorSignalCollector(1, 1, status);
+                        //status = "O";
+                        //RoomStatusUpdate(1, 1, status);
+                        //SensorSignalCollector(1, 1, status);
                         //}
                     }
                 }
@@ -332,7 +338,7 @@ namespace WinformTest
 
         private void ViewCamera(String channel)
         {
-            axVLCPlugin21.playlist.add("rtsp://admin:Tjxldnpdj2018!@192.168.10.124/"+ channel +"/high", null, null);
+            axVLCPlugin21.playlist.add("rtsp://admin:Tjxldnpdj2018!@192.168.10.124/" + channel + "/high", null, null);
             axVLCPlugin21.playlist.next();
             axVLCPlugin21.playlist.play();
         }
