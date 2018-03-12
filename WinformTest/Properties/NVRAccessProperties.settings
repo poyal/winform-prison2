@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WinformTest.Properties" GeneratedClassName="NVRAccess-Properties">
+  <Profiles />
+  <Settings>
+    <Setting Name="HTTP_HEADER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://</Value>
+    </Setting>
+    <Setting Name="NVR_IP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.10.124</Value>
+    </Setting>
+    <Setting Name="NVR_USER_NAME" Type="System.String" Scope="User">
+      <Value Profile="(Default)">admin</Value>
+    </Setting>
+    <Setting Name="NVR_USER_PW" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Tjxldnpdj2018!</Value>
+    </Setting>
+    <Setting Name="RTSP_HEADER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rtsp://</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
