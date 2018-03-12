@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.group_status_panel = new System.Windows.Forms.Panel();
             this.room_panel = new System.Windows.Forms.Panel();
             this.bottom_room_panel = new System.Windows.Forms.Panel();
@@ -44,10 +45,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
             this.room_panel.SuspendLayout();
             this.panel3.SuspendLayout();
             this.menu_panel.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
             this.SuspendLayout();
             // 
             // group_status_panel
@@ -192,11 +196,21 @@
             this.panel2.AutoScroll = true;
             this.panel2.BackColor = System.Drawing.Color.Black;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.axVLCPlugin21);
             this.panel2.Location = new System.Drawing.Point(1422, 121);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(473, 303);
             this.panel2.TabIndex = 3;
+            // 
+            // axVLCPlugin21
+            // 
+            this.axVLCPlugin21.Enabled = true;
+            this.axVLCPlugin21.Location = new System.Drawing.Point(0, 2);
+            this.axVLCPlugin21.Name = "axVLCPlugin21";
+            this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
+            this.axVLCPlugin21.Size = new System.Drawing.Size(469, 299);
+            this.axVLCPlugin21.TabIndex = 0;
             // 
             // Form1
             // 
@@ -222,6 +236,8 @@
             this.menu_panel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,6 +260,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel2;
+        private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
     }
 }
 

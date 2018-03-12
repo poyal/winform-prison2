@@ -27,7 +27,7 @@ namespace WinformTest
             InitializeComponent();
 
             dbc.Open();
-
+            ViewCamera("2");
             SensorSearchTimer();
             AddGroupStatusItem();
             AddEventHistoryItem();
@@ -305,7 +305,16 @@ namespace WinformTest
         public void Room_Item_Click(object sender, EventArgs e)
         {
             JObject json = sender as JObject;
-            Console.WriteLine(json.ToString());
+            Console.WriteLine("============== sender :: " + json.ToString());
+            NVRControll nvrc = new NVRControll();
+            nvrc.MoveCameraPTZ("2", null, null, "2", null);
+        }
+
+        private void ViewCamera(String channel)
+        {
+            axVLCPlugin21.playlist.add("rtsp://admin:Tjxldnpdj2018!@192.168.10.124/"+ channel +"/high", null, null);
+            axVLCPlugin21.playlist.next();
+            axVLCPlugin21.playlist.play();
         }
     }
 }
