@@ -19,6 +19,7 @@ namespace WinformTest
 
         public void MoveCameraPTZ(string channel, string move, string zoom, string preset, string presetSave)
         {
+
             string url = string.Concat(httpHeader, nvrIp);
             string dir = "/control/ptz.cgi?level=1";
 

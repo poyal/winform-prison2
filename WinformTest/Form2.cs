@@ -29,7 +29,7 @@ namespace WinformTest
         private void MovePreset()
         {
             nvrCon = new NVRControll();
-            nvrCon.MoveCameraPTZ("2", null, null, channel, null);
+            nvrCon.MoveCameraPTZ(channel, null, null, "2", null);
         }
 
         private void GetViewCamera()
@@ -37,6 +37,13 @@ namespace WinformTest
             axVLCPlugin21.playlist.add(rtspHeader + userName + ":" + userPw + "@" + nvrIp + "/" + channel + "/high", null, null);
             axVLCPlugin21.playlist.next();
             axVLCPlugin21.playlist.play();
+        }
+
+        private void Form2_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            nvrCon = new NVRControll();
+            nvrCon.MoveCameraPTZ(channel, null, null, "1", null);
+            axVLCPlugin21.playlist.stop();
         }
     }
 }
