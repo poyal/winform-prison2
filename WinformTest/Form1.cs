@@ -190,6 +190,7 @@ namespace WinformTest
         /// </summary>
         private void AddEventHistoryItem()
         {
+            EventHistory_panel.Controls.Clear();
             DataTable historyDataTable = dbc.SelectRoomStatusHistory();
             foreach (DataRow row in historyDataTable.Rows)
             {
