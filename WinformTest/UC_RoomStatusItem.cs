@@ -56,6 +56,7 @@ namespace WinformTest
             json.Add("groupName", rows[0]["group_name"].ToString());
             json.Add("roomName", rows[0]["room_name"].ToString());
             json.Add("roomCode", rows[0]["room_code"].ToString());
+            json.Add("roomStatus", rows[0]["room_status"].ToString());
             json.Add("roomStatusName", rows[0]["room_status_name"].ToString());
             json.Add("updatTime", rows[0]["updat_time"].ToString());
 
