@@ -261,7 +261,7 @@ namespace WinformTest
 
         private void SettingRoom()
         {
-            DataTable roomDataTable = dbc.GetRoomList(selectGroupCode);
+            DataTable roomDataTable = dbc.GetRoomList(selectGroupCode, null);
 
             foreach (DataRow row in roomDataTable.Rows)
             {
