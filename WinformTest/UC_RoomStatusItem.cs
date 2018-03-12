@@ -55,20 +55,6 @@ namespace WinformTest
             json.Add("roomName", this.roomName);
             json.Add("roomStatus", this.roomStatus);
             this.RoomItemClick(json, new EventArgs());
-            RoomCamaraOpen();
-            RoomStatusChange();
-        }
-
-        private void RoomCamaraOpen()
-        {
-            Form2 frm = new Form2(); // 새 폼 생성¬
-            //frm.Owner = this; // 새 폼의 오너를 현재 폼으로
-            frm.Show(); // 새폼 보여 주 기
-        }
-
-        private void RoomStatusChange()
-        {
-
         }
 
         private void RoomColorChange(string roomStatus)

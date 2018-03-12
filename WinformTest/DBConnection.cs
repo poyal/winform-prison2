@@ -150,7 +150,7 @@ namespace WinformTest
             return preset;
         }
 
-        public DataTable GetRoomList(string groupCode)
+        public DataTable GetRoomList(string groupCode, string roomCode)
         {
             string sql = "";
             sql += "SELECT ";
@@ -159,7 +159,14 @@ namespace WinformTest
             sql += "    room_name   AS room_name, ";
             sql += "    room_status AS room_status ";
             sql += "FROM room_info ";
-            sql += "WHERE group_code = '" + groupCode + "' ";
+            sql += "WHERE 1=1"; 
+            sql += "AND group_code = '" + groupCode + "'";
+
+            if (!string.IsNullOrEmpty(roomCode))
+            {
+                sql += "AND room_code = '" + roomCode + "'";
+            }
+
             sql += "ORDER BY room_code ASC";
 
             DataTable roomDataTable = SelectDataTable(sql);
