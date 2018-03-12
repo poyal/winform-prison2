@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.group_status_panel = new System.Windows.Forms.Panel();
             this.room_panel = new System.Windows.Forms.Panel();
+            this.bottom_room_panel = new System.Windows.Forms.Panel();
+            this.top_room_panel = new System.Windows.Forms.Panel();
+            this.center_fild_panel = new System.Windows.Forms.Panel();
             this.EventHistory_panel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,12 +41,13 @@
             this.title_label = new System.Windows.Forms.Label();
             this.menu_panel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.center_fild_panel = new System.Windows.Forms.Panel();
-            this.top_room_panel = new System.Windows.Forms.Panel();
-            this.bottom_room_panel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.room_panel.SuspendLayout();
             this.panel3.SuspendLayout();
             this.menu_panel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // group_status_panel
@@ -53,7 +57,7 @@
             this.group_status_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.group_status_panel.Location = new System.Drawing.Point(130, 72);
             this.group_status_panel.Name = "group_status_panel";
-            this.group_status_panel.Size = new System.Drawing.Size(1762, 189);
+            this.group_status_panel.Size = new System.Drawing.Size(1278, 189);
             this.group_status_panel.TabIndex = 0;
             // 
             // room_panel
@@ -68,15 +72,40 @@
             this.room_panel.Size = new System.Drawing.Size(1278, 679);
             this.room_panel.TabIndex = 1;
             // 
+            // bottom_room_panel
+            // 
+            this.bottom_room_panel.Location = new System.Drawing.Point(45, 457);
+            this.bottom_room_panel.Margin = new System.Windows.Forms.Padding(0);
+            this.bottom_room_panel.Name = "bottom_room_panel";
+            this.bottom_room_panel.Size = new System.Drawing.Size(1180, 118);
+            this.bottom_room_panel.TabIndex = 1;
+            // 
+            // top_room_panel
+            // 
+            this.top_room_panel.Location = new System.Drawing.Point(45, 145);
+            this.top_room_panel.Margin = new System.Windows.Forms.Padding(0);
+            this.top_room_panel.Name = "top_room_panel";
+            this.top_room_panel.Size = new System.Drawing.Size(1180, 118);
+            this.top_room_panel.TabIndex = 0;
+            // 
+            // center_fild_panel
+            // 
+            this.center_fild_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(73)))), ((int)(((byte)(73)))));
+            this.center_fild_panel.Location = new System.Drawing.Point(45, 263);
+            this.center_fild_panel.Margin = new System.Windows.Forms.Padding(0);
+            this.center_fild_panel.Name = "center_fild_panel";
+            this.center_fild_panel.Size = new System.Drawing.Size(1180, 194);
+            this.center_fild_panel.TabIndex = 0;
+            // 
             // EventHistory_panel
             // 
             this.EventHistory_panel.AutoScroll = true;
             this.EventHistory_panel.BackColor = System.Drawing.Color.Black;
             this.EventHistory_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.EventHistory_panel.Location = new System.Drawing.Point(1422, 359);
+            this.EventHistory_panel.Location = new System.Drawing.Point(1422, 483);
             this.EventHistory_panel.Margin = new System.Windows.Forms.Padding(0);
             this.EventHistory_panel.Name = "EventHistory_panel";
-            this.EventHistory_panel.Size = new System.Drawing.Size(473, 590);
+            this.EventHistory_panel.Size = new System.Drawing.Size(473, 466);
             this.EventHistory_panel.TabIndex = 2;
             // 
             // panel3
@@ -84,10 +113,10 @@
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(61)))), ((int)(((byte)(61)))));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label1);
-            this.panel3.Location = new System.Drawing.Point(1422, 270);
+            this.panel3.Location = new System.Drawing.Point(1422, 434);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(473, 89);
+            this.panel3.Size = new System.Drawing.Size(473, 49);
             this.panel3.TabIndex = 3;
             // 
             // label1
@@ -95,7 +124,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Emoji", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(26, 29);
+            this.label1.Location = new System.Drawing.Point(26, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 27);
             this.label1.TabIndex = 0;
@@ -136,30 +165,38 @@
             this.label2.Text = "DASHBOARD";
             this.label2.Click += new System.EventHandler(this.LeftMenuSettingClick);
             // 
-            // center_fild_panel
+            // panel1
             // 
-            this.center_fild_panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(73)))), ((int)(((byte)(73)))));
-            this.center_fild_panel.Location = new System.Drawing.Point(45, 263);
-            this.center_fild_panel.Margin = new System.Windows.Forms.Padding(0);
-            this.center_fild_panel.Name = "center_fild_panel";
-            this.center_fild_panel.Size = new System.Drawing.Size(1180, 194);
-            this.center_fild_panel.TabIndex = 0;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(61)))), ((int)(((byte)(61)))));
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Location = new System.Drawing.Point(1422, 72);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(473, 49);
+            this.panel1.TabIndex = 4;
             // 
-            // top_room_panel
+            // label3
             // 
-            this.top_room_panel.Location = new System.Drawing.Point(45, 145);
-            this.top_room_panel.Margin = new System.Windows.Forms.Padding(0);
-            this.top_room_panel.Name = "top_room_panel";
-            this.top_room_panel.Size = new System.Drawing.Size(1180, 118);
-            this.top_room_panel.TabIndex = 0;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI Emoji", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label3.Location = new System.Drawing.Point(26, 10);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 27);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "CCTV";
             // 
-            // bottom_room_panel
+            // panel2
             // 
-            this.bottom_room_panel.Location = new System.Drawing.Point(45, 457);
-            this.bottom_room_panel.Margin = new System.Windows.Forms.Padding(0);
-            this.bottom_room_panel.Name = "bottom_room_panel";
-            this.bottom_room_panel.Size = new System.Drawing.Size(1180, 118);
-            this.bottom_room_panel.TabIndex = 1;
+            this.panel2.AutoScroll = true;
+            this.panel2.BackColor = System.Drawing.Color.Black;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Location = new System.Drawing.Point(1422, 121);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(473, 303);
+            this.panel2.TabIndex = 3;
             // 
             // Form1
             // 
@@ -167,6 +204,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(1904, 961);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.menu_panel);
             this.Controls.Add(this.title_label);
             this.Controls.Add(this.panel3);
@@ -181,6 +220,8 @@
             this.panel3.PerformLayout();
             this.menu_panel.ResumeLayout(false);
             this.menu_panel.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -200,6 +241,9 @@
         private System.Windows.Forms.Panel center_fild_panel;
         private System.Windows.Forms.Panel bottom_room_panel;
         private System.Windows.Forms.Panel top_room_panel;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 

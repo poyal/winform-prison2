@@ -16,23 +16,34 @@ namespace WinformTest
         private string groupCode;
         private string groupCodeName;
         private string openCnt;
-
+        private string groupInmates;
+        private string roomCnt;
+        private string doorCnt;
+        private string cameraCnt;
+        
         /// <summary>
         /// 사동정보 셋팅
         /// </summary>
         /// <param name="groupCode">사동코드</param>
         /// <param name="groupCodeName">사동명칭</param>
         /// <param name="openCnt">현재열린문수</param>
-        public UC_GroupStatusItem(string groupCode, string groupCodeName, string openCnt)
+        public UC_GroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt)
         {
             InitializeComponent();
 
             this.groupCode = groupCode;
             this.groupCodeName = groupCodeName;
             this.openCnt = openCnt;
+            this.groupInmates = groupInmates;
+            this.roomCnt = roomCnt;
+            this.doorCnt = doorCnt;
+            this.cameraCnt = cameraCnt;
 
             group_name_label.Text = this.groupCodeName;
-
+            prison_num_label.Text = this.groupInmates;
+            room_num_label.Text = this.roomCnt;
+            door_num_label.Text = this.doorCnt;
+            camera_num_label.Text = this.cameraCnt;
             ChangeGroupColor(this.openCnt);
         }
 

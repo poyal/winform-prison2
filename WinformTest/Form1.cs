@@ -57,10 +57,14 @@ namespace WinformTest
             foreach (DataRow row in groupDataTable.Rows)
             {
                 string groupCode = row["group_code"].ToString();
-                string groupCodeName = row["group_code_name"].ToString();
+                string groupName = row["group_name"].ToString();
                 string openCnt = row["open_cnt"].ToString();
+                string groupInmates = row["group_inmates"].ToString();
+                string roomCnt = row["room_cnt"].ToString();
+                string doorCnt = row["door_cnt"].ToString();
+                string cameraCnt = row["camera_cnt"].ToString();
 
-                var temp = new UC_GroupStatusItem(groupCode, groupCodeName, openCnt);
+                var temp = new UC_GroupStatusItem(groupCode, groupName, openCnt, groupInmates, roomCnt, doorCnt, cameraCnt);
                 temp.GroupItemClick += new EventHandler(Group_Item_Click);
                 int XPos = 0;
                 foreach (Control item in group_status_panel.Controls)

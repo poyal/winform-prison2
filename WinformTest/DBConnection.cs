@@ -102,17 +102,21 @@ namespace WinformTest
         {
             string sql = "";
             sql += "SELECT ";
-            sql += "    (SELECT group_name ";
-            sql += "     FROM group_info G ";
-            sql += "     WHERE G.group_code = A.group_code) AS group_code_name, ";
-            sql += "    group_code                          AS group_code, ";
-            sql += "    COUNT(CASE";
-            sql += "          WHEN room_status = 'O' ";
-            sql += "            THEN ";
-            sql += "              '1' END)                  AS open_cnt ";
-            sql += "FROM room_info A ";
-            sql += "GROUP BY group_code ";
-            sql += "ORDER BY group_code ASC ";
+            sql += "  A.group_name          AS group_name, ";
+            sql += "  A.group_code          AS group_code, ";
+            sql += "  A.group_inmates       AS group_inmates, ";
+            sql += "  A.room_cnt            AS room_cnt, ";
+            sql += "  A.door_cnt            AS door_cnt, ";
+            sql += "  A.camera_cnt          AS camera_cnt, ";
+            sql += "  COUNT(CASE ";
+            sql += "        WHEN B.room_status = 'O' ";
+            sql += "          THEN ";
+            sql += "            '1' END)    AS open_cnt ";
+            sql += "FROM group_info A, room_info B ";
+            sql += "WHERE A.group_code = B.group_code ";
+            sql += "GROUP BY A.group_code ";
+            sql += "ORDER BY A.group_code ASC ";
+
 
             DataTable groupDataTable = SelectDataTable(sql);
             return groupDataTable;
