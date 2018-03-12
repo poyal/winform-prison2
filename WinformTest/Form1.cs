@@ -294,7 +294,15 @@ namespace WinformTest
             JObject json = sender as JObject;
             Console.WriteLine("============== sender :: " + json.ToString());
             NVRControll nvrc = new NVRControll();
-            nvrc.MoveCameraPTZ("2", null, null, "2", null);
+
+            if ("C".Equals(json.GetValue("roomStatus").ToString()))
+            {
+                nvrc.MoveCameraPTZ("2", null, null, "1", null);
+            } else
+            {
+                nvrc.MoveCameraPTZ("2", null, null, "2", null);
+            }
+            
         }
 
         private void ViewCamera(String channel)
