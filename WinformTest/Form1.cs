@@ -321,6 +321,9 @@ namespace WinformTest
             }
         }
 
+        /// <summary>
+        /// 각 호실 클릭 이벤트
+        /// </summary>
         public void Room_Item_Click(object sender, EventArgs e)
         {
             UpdateGroupItem();
@@ -328,16 +331,21 @@ namespace WinformTest
             Console.WriteLine("============== sender :: " + json.ToString());
             NVRControll nvrc = new NVRControll();
 
+            AddEventHistoryItem();
+
             if ("C".Equals(json.GetValue("roomStatus").ToString()))
             {
                 nvrc.MoveCameraPTZ("2", null, null, "1", null);
             } else
             {
-                nvrc.MoveCameraPTZ("2", null, null, "2", null);
+                nvrc.MoveCameraPTZ("2", null, null, json.GetValue("preset").ToString(), null);
             }
             
         }
 
+        /// <summary>
+        /// nvr streaming
+        /// </summary>
         private void ViewCamera(String channel)
         {
             axVLCPlugin21.playlist.add("rtsp://admin:Tjxldnpdj2018!@192.168.10.124/"+ channel +"/high", null, null);
