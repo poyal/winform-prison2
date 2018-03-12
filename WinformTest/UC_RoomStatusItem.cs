@@ -18,6 +18,8 @@ namespace WinformTest
         private string roomName;
         private string roomStatus;
 
+        DBConnection dbc = new DBConnection();
+
         Util util = new Util();
 
         public UC_RoomStatusItem(string groupCode, string roomCode, string roomName, string roomStatus)
@@ -40,6 +42,8 @@ namespace WinformTest
             {
                 door_panel.Location = new Point(29, 0);
             }
+
+            RoomColorChange(this.roomStatus);
         }
 
         public event EventHandler RoomItemClick;
@@ -52,6 +56,7 @@ namespace WinformTest
             json.Add("roomStatus", this.roomStatus);
             this.RoomItemClick(json, new EventArgs());
             RoomCamaraOpen();
+            RoomStatusChange();
         }
 
         private void RoomCamaraOpen()
@@ -59,6 +64,23 @@ namespace WinformTest
             Form2 frm = new Form2(); // 새 폼 생성¬
             //frm.Owner = this; // 새 폼의 오너를 현재 폼으로
             frm.Show(); // 새폼 보여 주 기
+        }
+
+        private void RoomStatusChange()
+        {
+
+        }
+
+        private void RoomColorChange(string roomStatus)
+        {
+            if (roomStatus.Equals("O"))
+            {
+                room_panel.BackColor = Color.DarkRed;
+            }
+            else if (roomStatus.Equals("C"))
+            {
+                room_panel.BackColor = util.GetRGBColor(45, 45, 45);
+            }
         }
     }
 }

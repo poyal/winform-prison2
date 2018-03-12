@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,13 @@ namespace WinformTest
             int roomNo;
             int.TryParse(roomCode.Substring(1, 2), out roomNo);
             return roomNo;
+        }
+
+        public Color GetRGBColor(int red, int blue, int green)
+        {
+            Color myRgbColor = new Color();
+            myRgbColor = Color.FromArgb(red, blue, green);
+            return myRgbColor;
         }
     }
 }
