@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.group_status_panel = new System.Windows.Forms.Panel();
             this.room_panel = new System.Windows.Forms.Panel();
@@ -38,7 +37,6 @@
             this.EventHistory_panel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.title_label = new System.Windows.Forms.Label();
             this.menu_panel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -134,10 +132,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "알림";
             // 
-            // serialPort1
-            // 
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            // 
             // title_label
             // 
             this.title_label.AutoSize = true;
@@ -209,7 +203,7 @@
             this.axVLCPlugin21.Location = new System.Drawing.Point(0, 2);
             this.axVLCPlugin21.Name = "axVLCPlugin21";
             this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
-            this.axVLCPlugin21.Size = new System.Drawing.Size(469, 299);
+            this.axVLCPlugin21.Size = new System.Drawing.Size(469, 298);
             this.axVLCPlugin21.TabIndex = 0;
             // 
             // Form1
@@ -250,7 +244,6 @@
         private System.Windows.Forms.Panel EventHistory_panel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label1;
-        private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Label title_label;
         private System.Windows.Forms.Panel menu_panel;
         private System.Windows.Forms.Label label2;

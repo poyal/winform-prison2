@@ -1,13 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinformTest
@@ -16,10 +10,9 @@ namespace WinformTest
     {
         private DBConnection dbc = new DBConnection();
         private Util util = new Util();
+
         private int groupMargin = Properties.CommonProperties.Default.groupMargin;
-        private string sensorSignal = "";
         private System.Timers.Timer aTimer;
-        private string preset = "1";
         private string selectGroupCode;
 
         public Form1()
@@ -28,7 +21,6 @@ namespace WinformTest
 
             dbc.Open();
             ViewCamera("2");
-            SensorSearchTimer();
             AddGroupStatusItem();
             AddEventHistoryItem();
             SettingRoom();
@@ -130,162 +122,8 @@ namespace WinformTest
         {
             JObject json = sender as JObject;
             Console.WriteLine("groupCode = " + json["groupCode"]);
-            Console.WriteLine("groupCodeName = " + json["groupCodeName"]);
-        }
+            string groupCode = json["groupCode"].ToString();
 
-        /// <summary>
-        /// 방열림정보 셋팅
-        /// </summary>
-        private void AddEventHistoryItem()
-        {
-            DataTable historyDataTable = dbc.SelectRoomStatusHistory();
-            foreach (DataRow row in historyDataTable.Rows)
-            {
-                string groupCode = row["group_code"].ToString();
-                string groupCodeName = row["group_code_name"].ToString();
-                string roomCode = row["room_code"].ToString();
-                string roomCodeName = row["room_code_name"].ToString();
-                string roomStatus = row["room_status"].ToString();
-                string roomStatusName = row["room_status_name"].ToString();
-                string eventTime = row["event_time"].ToString();
-                var temp = new UC_EventHistoryItem(groupCode, groupCodeName, roomCode, roomCodeName, roomStatus, roomStatusName, eventTime);
-
-                temp.Width = EventHistory_panel.Width - 23;
-
-                int YPos = 0;
-                foreach (Control item in EventHistory_panel.Controls)
-                {
-                    YPos += item.Height;
-                }
-
-                temp.Location = new Point(temp.Location.X, temp.Location.Y + YPos);
-                EventHistory_panel.Controls.Add(temp);
-
-                int dataCount = historyDataTable.Select().Length;
-
-                if (dataCount > 0)
-                {
-                    DataRow[] rows = historyDataTable.Select();
-                    selectGroupCode = rows[0]["group_code"].ToString();
-                }
-                else
-                {
-                    selectGroupCode = "G01";
-                }
-            }
-        }
-
-        private void SensorSearchTimer()
-        {
-            aTimer = new System.Timers.Timer();
-            aTimer.Interval = 1000;
-
-            // Hook up the Elapsed event for the timer. 
-            aTimer.Elapsed += OnTimedEvent;
-
-            // Have the timer fire repeated events (true is the default)
-            aTimer.AutoReset = true;
-
-            // Start the timer
-            aTimer.Enabled = true;
-        }
-
-        private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
-        {
-            string comportStr = "";
-            foreach (string comport in SerialPort.GetPortNames())
-            {
-                comportStr = comport;
-            }
-
-            if (!comportStr.Equals(""))
-            {
-                aTimer.Stop();
-                SensorConnect(comportStr);
-            }
-        }
-
-        private void SensorConnect(string comportStr)
-        {
-            Console.WriteLine("Sensor IN -------------------");
-            Console.WriteLine("PortName = " + comportStr);
-            Console.WriteLine("BaudRate = " + 9600);
-            Console.WriteLine("DataBits = " + 8);
-            Console.WriteLine("Parity = " + Parity.None);
-            Console.WriteLine("StopBits = " + StopBits.One);
-            serialPort1.PortName = comportStr;
-            serialPort1.BaudRate = 9600;
-            serialPort1.DataBits = 8;
-            serialPort1.Parity = Parity.None;
-            serialPort1.StopBits = StopBits.One;
-            btnPortOpen_Click();
-        }
-
-        private void btnPortOpen_Click()
-        {
-            try
-            {
-                serialPort1.Open();
-            }
-            catch
-            {
-                Console.WriteLine("해당 포트는 사용 중입니다.");
-                return;
-            }
-
-            if (serialPort1.IsOpen)
-            {
-                Console.WriteLine("포트가 연결되었습니다.");
-            }
-            else
-            {
-                Console.WriteLine("포트를 연결하지 못했습니다.");
-            }
-        }
-
-        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
-        {
-            if (serialPort1.IsOpen)
-            {
-                string data = serialPort1.ReadExisting();
-
-                if (data.Trim() != string.Empty)
-                {
-                    char[] values = data.ToCharArray();
-                    int value = Convert.ToInt32(values[0]);
-
-
-                    if (data.Trim() != sensorSignal && data.Trim().Length == 1)
-                    {
-                        /*
-                        if (sensorSignal == "")
-                        {
-                            isOpenFlag = true;
-                        }
-                        */
-                        Console.WriteLine("----------------------");
-                        Console.WriteLine("data = " + data.Trim());
-                        sensorSignal = data.Trim();
-
-                        //Console.WriteLine("-------------------------");
-                        //Console.WriteLine("data = " + data.Trim());
-
-                        //string status = "";
-                        //if (data.Trim() == "1")
-                        //{
-                        //status = "C";
-                        //RoomStatusUpdate(1, 1, status);
-                        //SensorSignalCollector(1, 1, status);
-                        //}
-                        //else if (data.Trim() == "0")
-                        //{
-                        //status = "O";
-                        //RoomStatusUpdate(1, 1, status);
-                        //SensorSignalCollector(1, 1, status);
-                        //}
-                    }
-                }
-            }
         }
 
         private void SettingRoom()
@@ -334,7 +172,6 @@ namespace WinformTest
         {
             UpdateGroupItem();
             JObject json = sender as JObject;
-            Console.WriteLine("============== sender :: " + json.ToString());
             NVRControll nvrc = new NVRControll();
 
             AddEventHistoryItem();
@@ -346,7 +183,48 @@ namespace WinformTest
             {
                 nvrc.MoveCameraPTZ("2", null, null, json.GetValue("preset").ToString(), null);
             }
-            
+        }
+
+        /// <summary>
+        /// 방열림정보 셋팅
+        /// </summary>
+        private void AddEventHistoryItem()
+        {
+            DataTable historyDataTable = dbc.SelectRoomStatusHistory();
+            foreach (DataRow row in historyDataTable.Rows)
+            {
+                string groupCode = row["group_code"].ToString();
+                string groupCodeName = row["group_code_name"].ToString();
+                string roomCode = row["room_code"].ToString();
+                string roomCodeName = row["room_code_name"].ToString();
+                string roomStatus = row["room_status"].ToString();
+                string roomStatusName = row["room_status_name"].ToString();
+                string eventTime = row["event_time"].ToString();
+                var temp = new UC_EventHistoryItem(groupCode, groupCodeName, roomCode, roomCodeName, roomStatus, roomStatusName, eventTime);
+
+                temp.Width = EventHistory_panel.Width - 23;
+
+                int YPos = 0;
+                foreach (Control item in EventHistory_panel.Controls)
+                {
+                    YPos += item.Height;
+                }
+
+                temp.Location = new Point(temp.Location.X, temp.Location.Y + YPos);
+                EventHistory_panel.Controls.Add(temp);
+
+                int dataCount = historyDataTable.Select().Length;
+
+                if (dataCount > 0)
+                {
+                    DataRow[] rows = historyDataTable.Select();
+                    selectGroupCode = rows[0]["group_code"].ToString();
+                }
+                else
+                {
+                    selectGroupCode = "G01";
+                }
+            }
         }
 
         /// <summary>
