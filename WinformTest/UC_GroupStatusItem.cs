@@ -49,7 +49,20 @@ namespace WinformTest
 
         public void UpdateGroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt)
         {
+            this.groupCode = groupCode;
+            this.groupCodeName = groupCodeName;
+            this.openCnt = openCnt;
+            this.groupInmates = groupInmates;
+            this.roomCnt = roomCnt;
+            this.doorCnt = doorCnt;
+            this.cameraCnt = cameraCnt;
 
+            group_name_label.Text = this.groupCodeName;
+            prison_num_label.Text = this.groupInmates;
+            room_num_label.Text = this.roomCnt;
+            door_num_label.Text = this.doorCnt;
+            camera_num_label.Text = this.cameraCnt;
+            ChangeGroupColor(this.openCnt);
         }
         
         public string GetGroupCode()
