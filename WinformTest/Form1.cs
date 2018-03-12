@@ -88,6 +88,38 @@ namespace WinformTest
             }
         }
 
+        public void UpdateGroupItem()
+        {
+            DataTable groupDataTable = dbc.SelectGroupStatus();
+            foreach (Control control in this.group_status_panel.Controls)
+            {
+                if (control is UC_GroupStatusItem)
+                {
+                    UC_GroupStatusItem groupControl = control as UC_GroupStatusItem;
+                    string controlGroupCode = groupControl.GetGroupCode();
+
+                    string groupCode;
+                    string groupName;
+                    string openCnt;
+                    string groupInmates;
+                    string roomCnt;
+                    string doorCnt;
+                    string cameraCnt;
+
+
+                    foreach (DataRow row in groupDataTable.Rows)
+                    {
+                        if(controlGroupCode.Equals(row["group_code"].ToString()))
+                        {
+                            groupCode = row["group_code"].ToString();
+                        }
+                    }
+
+                    
+                }
+            }
+        }
+
         public void Group_Item_Click(object sender, EventArgs e)
         {
             JObject json = sender as JObject;
@@ -291,6 +323,7 @@ namespace WinformTest
 
         public void Room_Item_Click(object sender, EventArgs e)
         {
+            UpdateGroupItem();
             JObject json = sender as JObject;
             Console.WriteLine("============== sender :: " + json.ToString());
             NVRControll nvrc = new NVRControll();

@@ -82,7 +82,6 @@
             this.room_panel.ResumeLayout(false);
             this.room_panel.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
