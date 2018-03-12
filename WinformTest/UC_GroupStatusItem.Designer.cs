@@ -63,6 +63,7 @@
             this.prison_name_label.Size = new System.Drawing.Size(72, 19);
             this.prison_name_label.TabIndex = 1;
             this.prison_name_label.Text = "수감인원 :";
+            this.prison_name_label.Click += new System.EventHandler(this.Group_status_Click);
             // 
             // room_name_label
             // 
@@ -74,6 +75,7 @@
             this.room_name_label.Size = new System.Drawing.Size(58, 19);
             this.room_name_label.TabIndex = 2;
             this.room_name_label.Text = "호실수 :";
+            this.room_name_label.Click += new System.EventHandler(this.Group_status_Click);
             // 
             // door_name_label
             // 
@@ -85,6 +87,7 @@
             this.door_name_label.Size = new System.Drawing.Size(58, 19);
             this.door_name_label.TabIndex = 3;
             this.door_name_label.Text = "도어수 :";
+            this.door_name_label.Click += new System.EventHandler(this.Group_status_Click);
             // 
             // camera_name_label
             // 
@@ -96,6 +99,7 @@
             this.camera_name_label.Size = new System.Drawing.Size(72, 19);
             this.camera_name_label.TabIndex = 4;
             this.camera_name_label.Text = "카메라수 :";
+            this.camera_name_label.Click += new System.EventHandler(this.Group_status_Click);
             // 
             // prison_num_label
             // 
@@ -107,6 +111,7 @@
             this.prison_num_label.Size = new System.Drawing.Size(39, 19);
             this.prison_num_label.TabIndex = 5;
             this.prison_num_label.Text = "Num";
+            this.prison_num_label.Click += new System.EventHandler(this.Group_status_Click);
             // 
             // room_num_label
             // 
@@ -118,6 +123,7 @@
             this.room_num_label.Size = new System.Drawing.Size(39, 19);
             this.room_num_label.TabIndex = 6;
             this.room_num_label.Text = "Num";
+            this.room_num_label.Click += new System.EventHandler(this.Group_status_Click);
             // 
             // door_num_label
             // 
@@ -129,6 +135,7 @@
             this.door_num_label.Size = new System.Drawing.Size(39, 19);
             this.door_num_label.TabIndex = 7;
             this.door_num_label.Text = "Num";
+            this.door_num_label.Click += new System.EventHandler(this.Group_status_Click);
             // 
             // camera_num_label
             // 
@@ -140,6 +147,7 @@
             this.camera_num_label.Size = new System.Drawing.Size(39, 19);
             this.camera_num_label.TabIndex = 8;
             this.camera_num_label.Text = "Num";
+            this.camera_num_label.Click += new System.EventHandler(this.Group_status_Click);
             // 
             // group_status_panel
             // 

@@ -23,7 +23,7 @@ namespace WinformTest
             ViewCamera("2");
             AddGroupStatusItem();
             AddEventHistoryItem();
-            SettingRoom();
+            AddRoomStatusItem();
         }
 
         private void LeftMenuDashboardClick(object sender, EventArgs e)
@@ -45,7 +45,6 @@ namespace WinformTest
         private void AddGroupStatusItem()
         {
             DataTable groupDataTable = dbc.SelectGroupStatus();
-            int index = 0;
             foreach (DataRow row in groupDataTable.Rows)
             {
                 string groupCode = row["group_code"].ToString();
@@ -61,26 +60,15 @@ namespace WinformTest
                 int XPos = 0;
                 foreach (Control item in group_status_panel.Controls)
                 {
-                    XPos += item.Width;
+                    XPos += item.Width + 20;
                 }
 
-                int locationX = 0;
-                if (index == 0)
-                {
-                    locationX = temp.Location.X + groupMargin + XPos;
-                }
-                else
-                {
-                    locationX = temp.Location.X + groupMargin * 2 + XPos;
-                }
-                temp.Location = new Point(locationX, temp.Location.Y + 10);
+                temp.Location = new Point(temp.Location.X + groupMargin + XPos, temp.Location.Y + 10);
                 group_status_panel.Controls.Add(temp);
-
-                index++;
             }
         }
 
-        public void UpdateGroupItem()
+        public void UpdateGroupStatusItem()
         {
             DataTable groupDataTable = dbc.SelectGroupStatus();
             foreach (Control control in this.group_status_panel.Controls)
@@ -121,12 +109,12 @@ namespace WinformTest
         public void Group_Item_Click(object sender, EventArgs e)
         {
             JObject json = sender as JObject;
-            Console.WriteLine("groupCode = " + json["groupCode"]);
             string groupCode = json["groupCode"].ToString();
-
+            selectGroupCode = groupCode;
+            UpdateRoomStatusItem();
         }
 
-        private void SettingRoom()
+        private void AddRoomStatusItem()
         {
             DataTable roomDataTable = dbc.GetRoomList(selectGroupCode, null);
 
@@ -165,12 +153,73 @@ namespace WinformTest
             }
         }
 
+        private void UpdateRoomStatusItem()
+        {
+            DataTable roomDataTable = dbc.GetRoomList(selectGroupCode, null);
+
+            foreach (Control control in this.top_room_panel.Controls)
+            {
+                if (control is UC_RoomStatusItem)
+                {
+                    UC_RoomStatusItem roomControl = control as UC_RoomStatusItem;
+
+                    string controlRoomCode = roomControl.GetRoomCode();
+
+                    string groupCode = "";
+                    string roomCode = "";
+                    string roomName = "";
+                    string roomStatus = "";
+
+                    foreach (DataRow row in roomDataTable.Rows)
+                    {
+                        if(controlRoomCode.Equals(row["room_code"].ToString()))
+                        {
+                            groupCode = row["group_code"].ToString();
+                            roomCode = row["room_code"].ToString();
+                            roomName = row["room_name"].ToString();
+                            roomStatus = row["room_status"].ToString();
+                        }
+                    }
+
+                    roomControl.UpdateRoomStatusItem(groupCode, roomCode, roomName, roomStatus);
+                }
+            }
+
+            foreach (Control control in this.bottom_room_panel.Controls)
+            {
+                if (control is UC_RoomStatusItem)
+                {
+                    UC_RoomStatusItem roomControl = control as UC_RoomStatusItem;
+
+                    string controlRoomCode = roomControl.GetRoomCode();
+
+                    string groupCode = "";
+                    string roomCode = "";
+                    string roomName = "";
+                    string roomStatus = "";
+
+                    foreach (DataRow row in roomDataTable.Rows)
+                    {
+                        if (controlRoomCode.Equals(row["room_code"].ToString()))
+                        {
+                            groupCode = row["group_code"].ToString();
+                            roomCode = row["room_code"].ToString();
+                            roomName = row["room_name"].ToString();
+                            roomStatus = row["room_status"].ToString();
+                        }
+                    }
+
+                    roomControl.UpdateRoomStatusItem(groupCode, roomCode, roomName, roomStatus);
+                }
+            }
+        }
+
         /// <summary>
         /// 각 호실 클릭 이벤트
         /// </summary>
         public void Room_Item_Click(object sender, EventArgs e)
         {
-            UpdateGroupItem();
+            UpdateGroupStatusItem();
             JObject json = sender as JObject;
             NVRControll nvrc = new NVRControll();
 
@@ -179,7 +228,8 @@ namespace WinformTest
             if ("C".Equals(json.GetValue("roomStatus").ToString()))
             {
                 nvrc.MoveCameraPTZ("2", null, null, "1", null);
-            } else
+            }
+            else
             {
                 nvrc.MoveCameraPTZ("2", null, null, json.GetValue("preset").ToString(), null);
             }

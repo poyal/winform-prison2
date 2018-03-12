@@ -41,6 +41,33 @@ namespace WinformTest
             RoomColorChange(this.roomStatus);
         }
 
+        public void UpdateRoomStatusItem(string groupCode, string roomCode, string roomName, string roomStatus)
+        {
+            this.groupCode = groupCode;
+            this.roomCode = roomCode;
+            this.roomName = roomName;
+            this.roomStatus = roomStatus;
+
+            room_name_label.Text = roomName + "호실";
+
+            int roomNo = util.ReturnRoomCodeToRoomNo(this.roomCode);
+            if (roomNo <= 10)
+            {
+                door_panel.Location = new Point(29, 104);
+            }
+            else
+            {
+                door_panel.Location = new Point(29, 0);
+            }
+
+            RoomColorChange(this.roomStatus);
+        }
+
+        public string GetRoomCode()
+        {
+            return this.roomCode;
+        }
+
         public event EventHandler RoomItemClick;
         private void room_panel_Click(object sender, EventArgs e)
         {
