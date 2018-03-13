@@ -52,9 +52,9 @@
             this.room_name_label.ForeColor = System.Drawing.SystemColors.Menu;
             this.room_name_label.Location = new System.Drawing.Point(19, 33);
             this.room_name_label.Name = "room_name_label";
-            this.room_name_label.Size = new System.Drawing.Size(47, 20);
+            this.room_name_label.Size = new System.Drawing.Size(71, 20);
             this.room_name_label.TabIndex = 0;
-            this.room_name_label.Text = "1호실";
+            this.room_name_label.Text = "Num호실";
             this.room_name_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.room_name_label.Click += new System.EventHandler(this.room_panel_Click);
             // 
@@ -82,6 +82,7 @@
             this.room_panel.ResumeLayout(false);
             this.room_panel.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion

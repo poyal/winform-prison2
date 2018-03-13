@@ -3,6 +3,9 @@ using System.Data;
 
 namespace WinformTest
 {
+    /// <summary>
+    /// DB 연결
+    /// </summary>
     class DBConnection
     {
         private NpgsqlConnection conn;
@@ -122,6 +125,12 @@ namespace WinformTest
             return groupDataTable;
         }
 
+        /// <summary>
+        /// 호실정보 조회
+        /// </summary>
+        /// <param name="groupCode">사동코드</param>
+        /// <param name="roomCode">호실코드</param>
+        /// <returns>호실정보</returns>
         public DataTable GetRoomList(string groupCode, string roomCode)
         {
             string sql = "";
@@ -155,6 +164,13 @@ namespace WinformTest
             return roomDataTable;
         }
 
+        /// <summary>
+        /// 호실 상태정보 수정
+        /// </summary>
+        /// <param name="groupCode">사동코드</param>
+        /// <param name="roomCode">호실코드</param>
+        /// <param name="roomStatus">상태코드</param>
+        /// <returns>호실정보</returns>
         public DataTable UpdateRoomStatus(string groupCode, string roomCode, string roomStatus)
         {
             string sql = "";

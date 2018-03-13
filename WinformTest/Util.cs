@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace WinformTest
 {
+    /// <summary>
+    /// 공통 클래스
+    /// </summary>
     class Util
     {
+        /// <summary>
+        /// string 숫자 -> string 두자리 숫자
+        /// </summary>
+        /// <param name="number">string형 숫자</param>
+        /// <returns></returns>
         public string ReturnIntToString(string number)
         {
             string strNum = "";
@@ -20,6 +23,11 @@ namespace WinformTest
             return strNum;
         }
 
+        /// <summary>
+        /// 호실 코드 -> 방번호
+        /// </summary>
+        /// <param name="roomCode">호실 코드</param>
+        /// <returns>int 형 방번호</returns>
         public int ReturnRoomCodeToRoomNo(string roomCode)
         {
             int roomNo;
@@ -27,6 +35,13 @@ namespace WinformTest
             return roomNo;
         }
 
+        /// <summary>
+        /// RGB 형변환
+        /// </summary>
+        /// <param name="red">R</param>
+        /// <param name="blue">G</param>
+        /// <param name="green">B</param>
+        /// <returns>Color형</returns>
         public Color GetRGBColor(int red, int blue, int green)
         {
             Color myRgbColor = new Color();

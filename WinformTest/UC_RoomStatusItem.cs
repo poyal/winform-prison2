@@ -6,8 +6,12 @@ using Newtonsoft.Json.Linq;
 
 namespace WinformTest
 {
+    /// <summary>
+    /// 호실상태 UserController
+    /// </summary>
     public partial class UC_RoomStatusItem : UserControl
     {
+
         private string groupCode;
         private string roomCode;
         private string roomName;
@@ -17,6 +21,13 @@ namespace WinformTest
 
         Util util = new Util();
 
+        /// <summary>
+        /// UC_RoomStatusItem 객체 생성
+        /// </summary>
+        /// <param name="groupCode">사동코드</param>
+        /// <param name="roomCode">호실코드</param>
+        /// <param name="roomName">호실명</param>
+        /// <param name="roomStatus">호실상태</param>
         public UC_RoomStatusItem(string groupCode, string roomCode, string roomName, string roomStatus)
         {
             InitializeComponent();
@@ -41,6 +52,13 @@ namespace WinformTest
             RoomColorChange(this.roomStatus);
         }
 
+        /// <summary>
+        /// 호실 상태 수정
+        /// </summary>
+        /// <param name="groupCode">사동코드</param>
+        /// <param name="roomCode">호실코드</param>
+        /// <param name="roomName">호실명</param>
+        /// <param name="roomStatus">호실상태</param>
         public void UpdateRoomStatusItem(string groupCode, string roomCode, string roomName, string roomStatus)
         {
             this.groupCode = groupCode;
@@ -63,12 +81,25 @@ namespace WinformTest
             RoomColorChange(this.roomStatus);
         }
 
+        /// <summary>
+        /// 호실코드 리턴
+        /// </summary>
+        /// <returns>호실코드</returns>
         public string GetRoomCode()
         {
             return this.roomCode;
         }
 
+        /// <summary>
+        /// 방상태정보 parent로 callback
+        /// </summary>
         public event EventHandler RoomItemClick;
+
+        /// <summary>
+        /// 호실 클릭 이벤트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void room_panel_Click(object sender, EventArgs e)
         {
             DataTable roomDataTable = RoomStatusChange();
@@ -85,18 +116,10 @@ namespace WinformTest
             this.RoomItemClick(json, new EventArgs());
         }
 
-        private void RoomColorChange(string roomStatus)
-        {
-            if (roomStatus.Equals("O"))
-            {
-                room_panel.BackColor = Color.DarkRed;
-            }
-            else if (roomStatus.Equals("C"))
-            {
-                room_panel.BackColor = util.GetRGBColor(45, 45, 45);
-            }
-        }
-
+        /// <summary>
+        /// 호실 상태 변경
+        /// </summary>
+        /// <returns></returns>
         private DataTable RoomStatusChange()
         {
             dbc.Open();
@@ -113,6 +136,22 @@ namespace WinformTest
             DataTable roomDataTable = dbc.UpdateRoomStatus(this.groupCode, this.roomCode, this.roomStatus);
             dbc.Close();
             return roomDataTable;
+        }
+
+        /// <summary>
+        /// 호실 상태색 변경
+        /// </summary>
+        /// <param name="roomStatus">호실상태</param>
+        private void RoomColorChange(string roomStatus)
+        {
+            if (roomStatus.Equals("O"))
+            {
+                room_panel.BackColor = Color.DarkRed;
+            }
+            else if (roomStatus.Equals("C"))
+            {
+                room_panel.BackColor = util.GetRGBColor(45, 45, 45);
+            }
         }
     }
 }
