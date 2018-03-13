@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Drawing;
+using System.IO.Ports;
 using System.Windows.Forms;
 
 namespace WinformTest
@@ -14,6 +15,10 @@ namespace WinformTest
         private int groupMargin = Properties.CommonProperties.Default.groupMargin;
         private System.Timers.Timer aTimer;
         private string selectGroupCode;
+        private string sensorSignal = "";
+        private Boolean isOpenFlag = true;
+        private string sensorGroupCode = "G01";
+        private string sensorRoomCode = "R01";
 
         public string ipVal { get; set; }
 
@@ -30,6 +35,7 @@ namespace WinformTest
             AddEventHistoryItem();
             AddGroupStatusItem();
             AddRoomStatusItem();
+            SensorSearchTimer();
         }
 
         /// <summary>
@@ -130,6 +136,15 @@ namespace WinformTest
         {
             JObject json = sender as JObject;
             string groupCode = json["groupCode"].ToString();
+            GroupItemClickEvent(groupCode);
+        }
+
+        /// <summary>
+        /// 사동정보 클릭
+        /// </summary>
+        /// <param name="groupCode"></param>
+        private void GroupItemClickEvent(string groupCode)
+        {
             selectGroupCode = groupCode;
             UpdateRoomStatusItem();
             SelectedGroupStatusItem(groupCode);
@@ -339,5 +354,180 @@ namespace WinformTest
             axVLCPlugin21.playlist.play();
         }
 
+        /// <summary>
+        /// 센서 연결 타이머 시작
+        /// </summary>
+        private void SensorSearchTimer()
+        {
+            aTimer = new System.Timers.Timer();
+            aTimer.Interval = 1000;
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.AutoReset = true;
+            aTimer.Enabled = true;
+        }
+
+        /// <summary>
+        /// 센서 타이머 연결 반복
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            string comportStr = "";
+            foreach (string comport in SerialPort.GetPortNames())
+            {
+                comportStr = comport;
+            }
+
+            if (!comportStr.Equals(""))
+            {
+                aTimer.Stop();
+                SensorSetting(comportStr);
+            }
+        }
+
+        // 센서 셋팅정보
+        private void SensorSetting(string comportStr)
+        {
+            Console.WriteLine("Sensor IN -------------------");
+            Console.WriteLine("PortName = " + comportStr);
+            Console.WriteLine("BaudRate = " + 9600);
+            Console.WriteLine("DataBits = " + 8);
+            Console.WriteLine("Parity = " + Parity.None);
+            Console.WriteLine("StopBits = " + StopBits.One);
+            serialPort1.PortName = comportStr;
+            serialPort1.BaudRate = 9600;
+            serialPort1.DataBits = 8;
+            serialPort1.Parity = Parity.None;
+            serialPort1.StopBits = StopBits.One;
+            SerialPortOpen();
+        }
+
+        /// <summary>
+        /// 센서 연결
+        /// </summary>
+        private void SerialPortOpen()
+        {
+            try
+            {
+                serialPort1.Open();
+            }
+            catch
+            {
+                Console.WriteLine("해당 포트는 사용 중입니다.");
+                return;
+            }
+
+            if (serialPort1.IsOpen)
+            {
+                Console.WriteLine("포트가 연결되었습니다.");
+            }
+            else
+            {
+                Console.WriteLine("포트를 연결하지 못했습니다.");
+            }
+        }
+
+        /// <summary>
+        /// 센서 정보 수신
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                string data = serialPort1.ReadExisting();
+
+                if (data.Trim() != string.Empty)
+                {
+                    char[] values = data.ToCharArray();
+                    int value = Convert.ToInt32(values[0]);
+
+
+                    if (data.Trim() != sensorSignal)
+                    {
+                        if (sensorSignal == "")
+                        {
+                            isOpenFlag = true;
+                        }
+
+                        sensorSignal = data.Trim();
+
+                        string status = "";
+                        if (data.Trim() == "1")
+                        {
+                            status = "C";
+                            GroupItemClickEvent(sensorGroupCode);
+                            JObject json = UpdateRoomStatusItemBySensor(sensorGroupCode, sensorRoomCode, status);
+                            UpdateGroupStatusItem();
+                            //AddEventHistoryItem();
+                        }
+                        else if (data.Trim() == "0")
+                        {
+                            status = "O";
+                            GroupItemClickEvent(sensorGroupCode);
+                            JObject json = UpdateRoomStatusItemBySensor(sensorGroupCode, sensorRoomCode, status);
+                            UpdateGroupStatusItem();
+                            //AddEventHistoryItem();
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private JObject UpdateRoomStatusItemBySensor(string groupCode, string roomCode, string roomStatus)
+        {
+            DataTable roomDataTable = dbc.UpdateRoomStatus(groupCode, roomCode, roomStatus);
+
+            UC_RoomStatusItem roomControl = null;
+
+            foreach (Control control in this.top_room_panel.Controls)
+            {
+                if (control is UC_RoomStatusItem)
+                {
+                    UC_RoomStatusItem temp = control as UC_RoomStatusItem;
+                    string UC_GroupCode = temp.GetGroupCode();
+                    string UC_RoomCode = temp.GetRoomCode();
+                    if (UC_GroupCode.Equals(groupCode) && UC_RoomCode.Equals(roomCode))
+                    {
+                        roomControl = control as UC_RoomStatusItem;
+                    }
+                }
+            }
+
+            foreach (Control control in this.bottom_room_panel.Controls)
+            {
+                if (control is UC_RoomStatusItem)
+                {
+                    UC_RoomStatusItem temp = control as UC_RoomStatusItem;
+                    string UC_GroupCode = temp.GetGroupCode();
+                    string UC_RoomCode = temp.GetRoomCode();
+                    if (UC_GroupCode.Equals(groupCode) && UC_RoomCode.Equals(roomCode))
+                    {
+                        roomControl = control as UC_RoomStatusItem;
+                    }
+                }
+            }
+
+            if(roomControl != null)
+            {
+                roomControl.RoomColorChange(roomStatus);
+            }
+
+            DataRow[] rows = roomDataTable.Select();
+            JObject json = new JObject();
+            json.Add("groupCode", rows[0]["group_code"].ToString());
+            json.Add("groupName", rows[0]["group_name"].ToString());
+            json.Add("roomName", rows[0]["room_name"].ToString());
+            json.Add("roomCode", rows[0]["room_code"].ToString());
+            json.Add("roomStatus", rows[0]["room_status"].ToString());
+            json.Add("roomStatusName", rows[0]["room_status_name"].ToString());
+            json.Add("updatTime", rows[0]["updat_time"].ToString());
+            json.Add("preset", rows[0]["preset"].ToString());
+
+            return json;
+        }
     }
 }

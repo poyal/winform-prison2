@@ -48,5 +48,20 @@ namespace WinformTest
             myRgbColor = Color.FromArgb(red, blue, green);
             return myRgbColor;
         }
+
+        public string SensorDataToStatusCode(string data)
+        {
+            string status = "";
+            if (data.Trim() == "1")
+            {
+                status = "C";
+            }
+            else if (data.Trim() == "0")
+            {
+                status = "O";
+            }
+            return status;
+        }
+
     }
 }

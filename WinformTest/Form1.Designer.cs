@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.group_status_panel = new System.Windows.Forms.Panel();
             this.room_panel = new System.Windows.Forms.Panel();
@@ -46,6 +47,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.room_panel.SuspendLayout();
             this.panel3.SuspendLayout();
             this.menu_panel.SuspendLayout();
@@ -224,8 +226,12 @@
             this.axVLCPlugin21.Location = new System.Drawing.Point(0, 2);
             this.axVLCPlugin21.Name = "axVLCPlugin21";
             this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
-            this.axVLCPlugin21.Size = new System.Drawing.Size(469, 298);
+            this.axVLCPlugin21.Size = new System.Drawing.Size(469, 299);
             this.axVLCPlugin21.TabIndex = 0;
+            // 
+            // serialPort1
+            // 
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // Form1
             // 
@@ -278,6 +284,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel5;
+        private System.IO.Ports.SerialPort serialPort1;
     }
 }
 
