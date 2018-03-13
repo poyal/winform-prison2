@@ -15,6 +15,7 @@ namespace WinformTest
 
         private int groupMargin = Properties.CommonProperties.Default.groupMargin;
         private static System.Windows.Forms.Timer aTimer = new System.Windows.Forms.Timer();
+        private System.Timers.Timer sensorTimer = new System.Timers.Timer();
         private string selectGroupCode;
         private string sensorSignal = "";
         private Boolean isOpenFlag = true;
@@ -40,6 +41,7 @@ namespace WinformTest
             AddEventHistoryItem();
             AddGroupStatusItem();
             AddRoomStatusItem();
+            SensorSearchTimer();
         }
 
         /// <summary>
@@ -402,11 +404,11 @@ namespace WinformTest
         /// </summary>
         private void SensorSearchTimer()
         {
-            aTimer = new System.Timers.Timer();
-            aTimer.Interval = 1000;
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
+            sensorTimer = new System.Timers.Timer();
+            sensorTimer.Interval = 1000;
+            sensorTimer.Elapsed += OnTimedEvent;
+            sensorTimer.AutoReset = true;
+            sensorTimer.Enabled = true;
         }
 
         /// <summary>
@@ -416,6 +418,7 @@ namespace WinformTest
         /// <param name="e"></param>
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
+            Console.WriteLine("IN");
             string comportStr = "";
             foreach (string comport in SerialPort.GetPortNames())
             {
@@ -424,7 +427,7 @@ namespace WinformTest
 
             if (!comportStr.Equals(""))
             {
-                aTimer.Stop();
+                sensorTimer.Stop();
                 SensorSetting(comportStr);
             }
         }
