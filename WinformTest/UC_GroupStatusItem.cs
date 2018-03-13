@@ -46,6 +46,34 @@ namespace WinformTest
             door_num_label.Text = this.doorCnt;
             camera_num_label.Text = this.cameraCnt;
             ChangeGroupColor(this.openCnt);
+
+            ColorTransparentSetting();
+        }
+
+        /// <summary>
+        /// 부모색상 참조
+        /// </summary>
+        private void ColorTransparentSetting()
+        {
+            group_name_label.BackColor = Color.Transparent;
+            prison_name_label.BackColor = Color.Transparent;
+            prison_num_label.BackColor = Color.Transparent;
+            room_name_label.BackColor = Color.Transparent;
+            room_num_label.BackColor = Color.Transparent;
+            door_num_label.BackColor = Color.Transparent;
+            door_name_label.BackColor = Color.Transparent;
+            camera_name_label.BackColor = Color.Transparent;
+            camera_num_label.BackColor = Color.Transparent;
+
+            group_name_label.Parent = group_status_panel;
+            prison_name_label.Parent = group_status_panel;
+            prison_num_label.Parent = group_status_panel;
+            room_name_label.Parent = group_status_panel;
+            room_num_label.Parent = group_status_panel;
+            door_num_label.Parent = group_status_panel;
+            door_name_label.Parent = group_status_panel;
+            camera_name_label.Parent = group_status_panel;
+            camera_num_label.Parent = group_status_panel;
         }
 
         /// <summary>
@@ -94,28 +122,10 @@ namespace WinformTest
             if (openCnt.Equals("0"))
             {
                 group_status_panel.BackColor = Color.Black;
-                group_name_label.BackColor = Color.Black;
-                prison_name_label.BackColor = Color.Black;
-                prison_num_label.BackColor = Color.Black;
-                room_name_label.BackColor = Color.Black;
-                room_num_label.BackColor = Color.Black;
-                door_num_label.BackColor = Color.Black;
-                door_name_label.BackColor = Color.Black;
-                camera_name_label.BackColor = Color.Black;
-                camera_num_label.BackColor = Color.Black;
             }
             else
             {
                 group_status_panel.BackColor = Color.DarkRed;
-                group_name_label.BackColor = Color.DarkRed;
-                prison_name_label.BackColor = Color.DarkRed;
-                prison_num_label.BackColor = Color.DarkRed;
-                room_name_label.BackColor = Color.DarkRed;
-                room_num_label.BackColor = Color.DarkRed;
-                door_num_label.BackColor = Color.DarkRed;
-                door_name_label.BackColor = Color.DarkRed;
-                camera_name_label.BackColor = Color.DarkRed;
-                camera_num_label.BackColor = Color.DarkRed;
             }
         }
 

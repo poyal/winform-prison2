@@ -6,7 +6,7 @@
       <Value Profile="(Default)">http://</Value>
     </Setting>
     <Setting Name="NVR_IP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.10.111</Value>
+      <Value Profile="(Default)">192.168.10.124</Value>
     </Setting>
     <Setting Name="NVR_USER_NAME" Type="System.String" Scope="User">
       <Value Profile="(Default)">admin</Value>

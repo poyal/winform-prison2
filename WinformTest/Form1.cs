@@ -2,8 +2,6 @@
 using System;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace WinformTest
@@ -34,14 +32,11 @@ namespace WinformTest
             AddRoomStatusItem();
         }
 
-        private void LeftMenuDashboardClick(object sender, EventArgs e)
-        {
-            //this.Visible = false; // 현재 폼 안보이게 하기
-            Form1 frm = new Form1(); // 새 폼 생성¬
-            frm.Owner = this; // 새 폼의 오너를 현재 폼으로
-            frm.Show(); // 새폼 보여 주 기
-        }
-
+        /// <summary>
+        /// NVR IP셋팅 팝업 페이지
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LeftMenuSettingClick(object sender, EventArgs e)
         {
             SetNVRIPPopForm ipform = new SetNVRIPPopForm();
@@ -55,6 +50,9 @@ namespace WinformTest
             }
         }
 
+        /// <summary>
+        /// 사동 정보 최초생성
+        /// </summary>
         private void AddGroupStatusItem()
         {
             group_status_panel.Controls.Clear();
@@ -82,6 +80,9 @@ namespace WinformTest
             }
         }
 
+        /// <summary>
+        /// 사동정보 수정
+        /// </summary>
         public void UpdateGroupStatusItem()
         {
             DataTable groupDataTable = dbc.SelectGroupStatus();
@@ -120,6 +121,11 @@ namespace WinformTest
             }
         }
 
+        /// <summary>
+        /// 사동정보 클릭 callback
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Group_Item_Click(object sender, EventArgs e)
         {
             JObject json = sender as JObject;
@@ -128,6 +134,9 @@ namespace WinformTest
             UpdateRoomStatusItem();
         }
 
+        /// <summary>
+        /// 호실정보 최초 추가
+        /// </summary>
         private void AddRoomStatusItem()
         {
             DataTable roomDataTable = dbc.GetRoomList(selectGroupCode, null);
@@ -167,6 +176,9 @@ namespace WinformTest
             }
         }
 
+        /// <summary>
+        /// 호실정보 수정
+        /// </summary>
         private void UpdateRoomStatusItem()
         {
             DataTable roomDataTable = dbc.GetRoomList(selectGroupCode, null);
@@ -186,7 +198,7 @@ namespace WinformTest
 
                     foreach (DataRow row in roomDataTable.Rows)
                     {
-                        if(controlRoomCode.Equals(row["room_code"].ToString()))
+                        if (controlRoomCode.Equals(row["room_code"].ToString()))
                         {
                             groupCode = row["group_code"].ToString();
                             roomCode = row["room_code"].ToString();
