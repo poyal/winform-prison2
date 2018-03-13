@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Drawing;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace WinformTest
@@ -12,8 +13,12 @@ namespace WinformTest
         private Util util = new Util();
 
         private int groupMargin = Properties.CommonProperties.Default.groupMargin;
-        private System.Timers.Timer aTimer;
+        private static System.Windows.Forms.Timer aTimer = new System.Windows.Forms.Timer();
         private string selectGroupCode;
+
+        JArray jArray = new JArray();
+        NVRControll nvrc;
+        int arrIdx = 0;
 
         public string ipVal { get; set; }
 
@@ -30,6 +35,9 @@ namespace WinformTest
             AddGroupStatusItem();
             AddEventHistoryItem();
             AddRoomStatusItem();
+
+            aTimer.Interval = 5000;
+            aTimer.Tick += new EventHandler(Timer_tick);
         }
 
         /// <summary>
@@ -245,21 +253,60 @@ namespace WinformTest
         /// </summary>
         public void Room_Item_Click(object sender, EventArgs e)
         {
+            arrIdx = 0;
             UpdateGroupStatusItem();
             JObject json = sender as JObject;
-            NVRControll nvrc = new NVRControll();
+            nvrc = new NVRControll();
 
             AddEventHistoryItem();
 
             if ("C".Equals(json.GetValue("roomStatus").ToString()))
             {
+                for(int i=0;i<jArray.Count; i++)
+                {
+                    JObject jobj = (JObject)jArray[i];
+                    if (jobj["groupCode"].ToString().Equals(jobj["groupCode"].ToString()) && 
+                        jobj["roomCode"].ToString().Equals(jobj["roomCode"].ToString()))
+                    {
+                        jArray.RemoveAt(i);
+                    }
+                }
                 nvrc.MoveCameraPTZ("2", null, null, "1", null);
             }
             else
             {
+                jArray.Add(json);
                 nvrc.MoveCameraPTZ("2", null, null, json.GetValue("preset").ToString(), null);
             }
+
+            aTimer.Stop();
+            aTimer.Start();
         }
+
+        
+
+        private void Timer_tick(Object source, EventArgs e)
+        {
+            if(jArray.Count > 0)
+            {
+                nvrc.MoveCameraPTZ("2", null, null, jArray[arrIdx]["preset"].ToString(), null);
+
+                if (arrIdx + 1 == jArray.Count)
+                {
+                    arrIdx = 0;
+                }
+                else
+                {
+                    arrIdx++;
+                }
+            }
+            else
+            {
+                aTimer.Stop();
+                arrIdx = 0;
+            }
+        }
+
 
         /// <summary>
         /// 방열림정보 셋팅
