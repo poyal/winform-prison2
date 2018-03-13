@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 
 namespace WinformTest
 {
+    /// <summary>
+    /// 사동 정보 UserController
+    /// </summary>
     public partial class UC_GroupStatusItem : UserControl
     {
         private string groupCode;
@@ -22,11 +19,15 @@ namespace WinformTest
         private string cameraCnt;
         
         /// <summary>
-        /// 사동정보 셋팅
+        /// 사동정보 객체 생성
         /// </summary>
         /// <param name="groupCode">사동코드</param>
-        /// <param name="groupCodeName">사동명칭</param>
-        /// <param name="openCnt">현재열린문수</param>
+        /// <param name="groupCodeName">사동명</param>
+        /// <param name="openCnt">열린문의 수</param>
+        /// <param name="groupInmates">수감인원</param>
+        /// <param name="roomCnt">호실수</param>
+        /// <param name="doorCnt">문수</param>
+        /// <param name="cameraCnt">카메라수</param>
         public UC_GroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt)
         {
             InitializeComponent();
@@ -47,6 +48,16 @@ namespace WinformTest
             ChangeGroupColor(this.openCnt);
         }
 
+        /// <summary>
+        /// 사동정보 수정
+        /// </summary>
+        /// <param name="groupCode">사동코드</param>
+        /// <param name="groupCodeName">사동명</param>
+        /// <param name="openCnt">열린문의 수</param>
+        /// <param name="groupInmates">수감인원</param>
+        /// <param name="roomCnt">호실수</param>
+        /// <param name="doorCnt">문수</param>
+        /// <param name="cameraCnt">카메라수</param>
         public void UpdateGroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt)
         {
             this.groupCode = groupCode;
@@ -65,16 +76,19 @@ namespace WinformTest
             ChangeGroupColor(this.openCnt);
         }
         
+        /// <summary>
+        /// 사동정보 리턴
+        /// </summary>
+        /// <returns>사동코드</returns>
         public string GetGroupCode()
         {
             return this.groupCode;
         }
 
         /// <summary>
-        /// 
-        /// 현재열린 문의 갯수에따라 색변경
+        /// 문열림 정보에 따라 색 변경
         /// </summary>
-        /// <param name="openCnt">현재열린문수</param>
+        /// <param name="openCnt">열린문의 수</param>
         private void ChangeGroupColor(string openCnt)
         {
             if (openCnt.Equals("0"))
@@ -105,8 +119,16 @@ namespace WinformTest
             }
         }
 
+        /// <summary>
+        ///  사동상태정보 parent로 callback
+        /// </summary>
         public event EventHandler GroupItemClick;
 
+        /// <summary>
+        /// 사동 버튼 클릭 이벤트
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Group_status_Click(object sender, EventArgs e)
         {
             JObject json = new JObject();
