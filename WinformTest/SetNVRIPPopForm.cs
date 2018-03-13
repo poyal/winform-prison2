@@ -22,7 +22,7 @@ namespace WinformTest
         private void button1_Click(object sender, EventArgs e)
         {
             Form1 frm = (Form1) Owner;
-            Properties.NVRAccessProperties.Default.NVR_IP = textBox1.Text;
+            frm.ipVal = textBox1.Text;
             this.Close();
         }
     }

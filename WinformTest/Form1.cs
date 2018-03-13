@@ -17,6 +17,8 @@ namespace WinformTest
         private System.Timers.Timer aTimer;
         private string selectGroupCode;
 
+        public string ipVal { get; set; }
+
         public Form1()
         {
             InitializeComponent();
@@ -32,8 +34,6 @@ namespace WinformTest
             AddRoomStatusItem();
         }
 
-        private string ipVal { get; set; }
-
         private void LeftMenuDashboardClick(object sender, EventArgs e)
         {
             //this.Visible = false; // 현재 폼 안보이게 하기
@@ -45,6 +45,7 @@ namespace WinformTest
         private void LeftMenuSettingClick(object sender, EventArgs e)
         {
             SetNVRIPPopForm ipform = new SetNVRIPPopForm();
+            ipform.StartPosition = FormStartPosition.CenterParent;
             DialogResult dr = ipform.ShowDialog();
 
             if (dr == DialogResult.OK)
