@@ -37,7 +37,7 @@ namespace WinformTest
             this.roomStatusName = roomStatusName;
             this.eventTime = eventTime;
 
-            event_group_room_label.Text = this.groupCodeName + " " + roomCodeName + "사동";
+            event_group_room_label.Text = this.groupCodeName + " " + roomCodeName + "호실";
             event_date_label.Text = this.eventTime;
             event_signal_label.Text = "문" + roomStatusName + " 신호 발생";
         }
@@ -62,7 +62,7 @@ namespace WinformTest
             this.roomStatusName = roomStatusName;
             this.eventTime = eventTime;
 
-            event_group_room_label.Text = this.groupCodeName + " " + roomCodeName + "사동";
+            event_group_room_label.Text = this.groupCodeName + " " + roomCodeName + "호실";
             event_date_label.Text = this.eventTime;
             event_signal_label.Text = "문" + roomStatusName + " 신호 발생";
         }

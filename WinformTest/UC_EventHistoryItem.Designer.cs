@@ -37,12 +37,12 @@
             // event_date_label
             // 
             this.event_date_label.AutoSize = true;
-            this.event_date_label.Font = new System.Drawing.Font("Segoe UI Emoji", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.event_date_label.Font = new System.Drawing.Font("Segoe UI Emoji", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.event_date_label.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.event_date_label.Location = new System.Drawing.Point(293, 61);
+            this.event_date_label.Location = new System.Drawing.Point(234, 50);
             this.event_date_label.Name = "event_date_label";
             this.event_date_label.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.event_date_label.Size = new System.Drawing.Size(69, 17);
+            this.event_date_label.Size = new System.Drawing.Size(103, 27);
             this.event_date_label.TabIndex = 0;
             this.event_date_label.Text = "TempTime";
             // 
@@ -51,7 +51,7 @@
             this.event_signal_label.AutoSize = true;
             this.event_signal_label.Font = new System.Drawing.Font("Segoe UI Emoji", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.event_signal_label.ForeColor = System.Drawing.SystemColors.Window;
-            this.event_signal_label.Location = new System.Drawing.Point(81, 24);
+            this.event_signal_label.Location = new System.Drawing.Point(81, 15);
             this.event_signal_label.Name = "event_signal_label";
             this.event_signal_label.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.event_signal_label.Size = new System.Drawing.Size(59, 24);
@@ -61,12 +61,12 @@
             // event_group_room_label
             // 
             this.event_group_room_label.AutoSize = true;
-            this.event_group_room_label.Font = new System.Drawing.Font("Segoe UI Emoji", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.event_group_room_label.Font = new System.Drawing.Font("Segoe UI Emoji", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.event_group_room_label.ForeColor = System.Drawing.SystemColors.Window;
-            this.event_group_room_label.Location = new System.Drawing.Point(83, 61);
+            this.event_group_room_label.Location = new System.Drawing.Point(80, 50);
             this.event_group_room_label.Name = "event_group_room_label";
             this.event_group_room_label.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.event_group_room_label.Size = new System.Drawing.Size(84, 17);
+            this.event_group_room_label.Size = new System.Drawing.Size(126, 27);
             this.event_group_room_label.TabIndex = 2;
             this.event_group_room_label.Text = "Group Room";
             // 
