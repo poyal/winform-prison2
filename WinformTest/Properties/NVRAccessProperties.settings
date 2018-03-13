@@ -1,12 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WinformTest.Properties" GeneratedClassName="NVRAccess-Properties">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WinformTest.Properties" GeneratedClassName="NVRAccessProperties">
   <Profiles />
   <Settings>
     <Setting Name="HTTP_HEADER" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://</Value>
     </Setting>
     <Setting Name="NVR_IP" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.10.124</Value>
+      <Value Profile="(Default)">192.168.10.111</Value>
     </Setting>
     <Setting Name="NVR_USER_NAME" Type="System.String" Scope="User">
       <Value Profile="(Default)">admin</Value>

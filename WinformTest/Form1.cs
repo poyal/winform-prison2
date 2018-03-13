@@ -2,6 +2,8 @@
 using System;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace WinformTest
@@ -18,13 +20,19 @@ namespace WinformTest
         public Form1()
         {
             InitializeComponent();
+            FormInit();
+        }
 
+        private void FormInit()
+        {
             dbc.Open();
             ViewCamera("2");
             AddGroupStatusItem();
             AddEventHistoryItem();
             AddRoomStatusItem();
         }
+
+        private string ipVal { get; set; }
 
         private void LeftMenuDashboardClick(object sender, EventArgs e)
         {
@@ -36,14 +44,19 @@ namespace WinformTest
 
         private void LeftMenuSettingClick(object sender, EventArgs e)
         {
-            //this.Visible = false; // 현재 폼 안보이게 하기
-            //Form2 frm = new Form2(); // 새 폼 생성¬
-            //frm.Owner = this; // 새 폼의 오너를 현재 폼으로
-            //frm.Show(); // 새폼 보여 주 기
+            SetNVRIPPopForm ipform = new SetNVRIPPopForm();
+            DialogResult dr = ipform.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                Properties.NVRAccessProperties.Default.NVR_IP = ipVal;
+                FormInit();
+            }
         }
 
         private void AddGroupStatusItem()
         {
+            group_status_panel.Controls.Clear();
             DataTable groupDataTable = dbc.SelectGroupStatus();
             foreach (DataRow row in groupDataTable.Rows)
             {
@@ -283,9 +296,17 @@ namespace WinformTest
         /// </summary>
         private void ViewCamera(String channel)
         {
-            axVLCPlugin21.playlist.add("rtsp://admin:Tjxldnpdj2018!@192.168.10.124/" + channel + "/high", null, null);
+            string rtspHeader = Properties.NVRAccessProperties.Default.RTSP_HEADER;
+            string httpHeader = Properties.NVRAccessProperties.Default.HTTP_HEADER;
+            string userName = Properties.NVRAccessProperties.Default.NVR_USER_NAME;
+            string userPw = Properties.NVRAccessProperties.Default.NVR_USER_PW;
+            string nvrIp = Properties.NVRAccessProperties.Default.NVR_IP;
+
+            Console.WriteLine("header :: " + rtspHeader + userName + ":" + userPw + "@" + nvrIp + "/" + channel + "/high");
+            axVLCPlugin21.playlist.add(rtspHeader + userName + ":" + userPw + "@" + nvrIp + "/" + channel + "/high", null, null);
             axVLCPlugin21.playlist.next();
             axVLCPlugin21.playlist.play();
         }
+
     }
 }

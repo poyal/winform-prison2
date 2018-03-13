@@ -28,7 +28,7 @@ namespace WinformTest
                 dir += "&channel=" + channel;
             }
 
-            if(!String.IsNullOrEmpty(move))
+            if (!String.IsNullOrEmpty(move))
             {
                 dir += "&move=" + move;
                 dir += "&pentilt_speed=6";

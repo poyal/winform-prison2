@@ -63,6 +63,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="SetNVRIPPopForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetNVRIPPopForm.Designer.cs">
+      <DependentUpon>SetNVRIPPopForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\DBProperties1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -96,6 +102,9 @@
     <Compile Include="Util.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetNVRIPPopForm.resx">
+      <DependentUpon>SetNVRIPPopForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UC_EventHistoryItem.resx">
       <DependentUpon>UC_EventHistoryItem.cs</DependentUpon>

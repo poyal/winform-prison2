@@ -39,7 +39,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.title_label = new System.Windows.Forms.Label();
             this.menu_panel = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -47,6 +49,7 @@
             this.room_panel.SuspendLayout();
             this.panel3.SuspendLayout();
             this.menu_panel.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axVLCPlugin21)).BeginInit();
@@ -145,23 +148,38 @@
             // 
             // menu_panel
             // 
-            this.menu_panel.Controls.Add(this.label2);
+            this.menu_panel.Controls.Add(this.panel4);
             this.menu_panel.Location = new System.Drawing.Point(2, 72);
             this.menu_panel.Name = "menu_panel";
             this.menu_panel.Size = new System.Drawing.Size(122, 877);
             this.menu_panel.TabIndex = 5;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.label2);
+            this.panel4.Controls.Add(this.panel5);
+            this.panel4.Location = new System.Drawing.Point(21, 22);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(71, 73);
+            this.panel4.TabIndex = 6;
+            this.panel4.Click += new System.EventHandler(this.LeftMenuSettingClick);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI Emoji", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label2.ForeColor = System.Drawing.Color.DimGray;
-            this.label2.Location = new System.Drawing.Point(3, 46);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Location = new System.Drawing.Point(4, 56);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(162, 33);
+            this.label2.Size = new System.Drawing.Size(66, 12);
             this.label2.TabIndex = 6;
-            this.label2.Text = "DASHBOARD";
-            this.label2.Click += new System.EventHandler(this.LeftMenuSettingClick);
+            this.label2.Text = "Dashboard";
+            // 
+            // panel5
+            // 
+            this.panel5.Location = new System.Drawing.Point(6, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(56, 50);
+            this.panel5.TabIndex = 6;
             // 
             // panel1
             // 
@@ -227,7 +245,8 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.menu_panel.ResumeLayout(false);
-            this.menu_panel.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -246,7 +265,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label title_label;
         private System.Windows.Forms.Panel menu_panel;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel center_fild_panel;
         private System.Windows.Forms.Panel bottom_room_panel;
         private System.Windows.Forms.Panel top_room_panel;
@@ -254,6 +272,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel2;
         private AxAXVLC.AxVLCPlugin2 axVLCPlugin21;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel5;
     }
 }
 
