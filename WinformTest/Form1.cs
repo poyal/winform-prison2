@@ -32,8 +32,8 @@ namespace WinformTest
         {
             dbc.Open();
             ViewCamera("2");
-            AddGroupStatusItem();
             AddEventHistoryItem();
+            AddGroupStatusItem();
             AddRoomStatusItem();
 
             aTimer.Interval = 5000;
@@ -75,7 +75,7 @@ namespace WinformTest
                 string doorCnt = row["door_cnt"].ToString();
                 string cameraCnt = row["camera_cnt"].ToString();
 
-                var temp = new UC_GroupStatusItem(groupCode, groupName, openCnt, groupInmates, roomCnt, doorCnt, cameraCnt);
+                var temp = new UC_GroupStatusItem(groupCode, groupName, openCnt, groupInmates, roomCnt, doorCnt, cameraCnt, selectGroupCode);
                 temp.GroupItemClick += new EventHandler(Group_Item_Click);
                 int XPos = 0;
                 foreach (Control item in group_status_panel.Controls)
@@ -140,6 +140,24 @@ namespace WinformTest
             string groupCode = json["groupCode"].ToString();
             selectGroupCode = groupCode;
             UpdateRoomStatusItem();
+            SelectedGroupStatusItem(groupCode);
+        }
+
+        /// <summary>
+        /// 사동선택 이벤트
+        /// </summary>
+        /// <param name="groupCode">사동 코드</param>
+        private void SelectedGroupStatusItem(string groupCode)
+        {
+            foreach (Control control in this.group_status_panel.Controls)
+            {
+                Console.WriteLine(control);
+                if(control is UC_GroupStatusItem)
+                {
+                    UC_GroupStatusItem groupControl = control as UC_GroupStatusItem;
+                    groupControl.SelectedItem(groupCode);
+                }
+            }
         }
 
         /// <summary>
