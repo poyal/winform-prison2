@@ -168,18 +168,21 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label2.Location = new System.Drawing.Point(4, 56);
+            this.label2.Location = new System.Drawing.Point(3, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 12);
             this.label2.TabIndex = 6;
             this.label2.Text = "Dashboard";
+            this.label2.Click += new System.EventHandler(this.LeftMenuSettingClick);
             // 
             // panel5
             // 
-            this.panel5.Location = new System.Drawing.Point(6, 3);
+            this.panel5.BackColor = System.Drawing.Color.Silver;
+            this.panel5.Location = new System.Drawing.Point(7, 3);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(56, 50);
             this.panel5.TabIndex = 6;
+            this.panel5.Click += new System.EventHandler(this.LeftMenuSettingClick);
             // 
             // panel1
             // 
