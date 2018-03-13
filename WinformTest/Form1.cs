@@ -338,47 +338,56 @@ namespace WinformTest
             }
         }
 
-
+        delegate void SetRoomUserControl();
         /// <summary>
         /// 방열림정보 셋팅
         /// </summary>
         private void AddEventHistoryItem()
         {
-            EventHistory_panel.Controls.Clear();
-            DataTable historyDataTable = dbc.SelectRoomStatusHistory();
-            foreach (DataRow row in historyDataTable.Rows)
+            if (EventHistory_panel.InvokeRequired)
             {
-                string groupCode = row["group_code"].ToString();
-                string groupCodeName = row["group_code_name"].ToString();
-                string roomCode = row["room_code"].ToString();
-                string roomCodeName = row["room_code_name"].ToString();
-                string roomStatus = row["room_status"].ToString();
-                string roomStatusName = row["room_status_name"].ToString();
-                string eventTime = row["event_time"].ToString();
-                var temp = new UC_EventHistoryItem(groupCode, groupCodeName, roomCode, roomCodeName, roomStatus, roomStatusName, eventTime);
-
-                temp.Width = EventHistory_panel.Width - 23;
-
-                int YPos = 0;
-                foreach (Control item in EventHistory_panel.Controls)
+                SetRoomUserControl dele = new SetRoomUserControl(AddEventHistoryItem);
+                this.Invoke(dele, new object[] {});
+            }
+            else
+            {
+                EventHistory_panel.Controls.Clear();
+                DataTable historyDataTable = dbc.SelectRoomStatusHistory();
+                foreach (DataRow row in historyDataTable.Rows)
                 {
-                    YPos += item.Height;
+                    string groupCode = row["group_code"].ToString();
+                    string groupCodeName = row["group_code_name"].ToString();
+                    string roomCode = row["room_code"].ToString();
+                    string roomCodeName = row["room_code_name"].ToString();
+                    string roomStatus = row["room_status"].ToString();
+                    string roomStatusName = row["room_status_name"].ToString();
+                    string eventTime = row["event_time"].ToString();
+                    var temp = new UC_EventHistoryItem(groupCode, groupCodeName, roomCode, roomCodeName, roomStatus, roomStatusName, eventTime);
+
+                    temp.Width = EventHistory_panel.Width - 23;
+
+                    int YPos = 0;
+                    foreach (Control item in EventHistory_panel.Controls)
+                    {
+                        YPos += item.Height;
+                    }
+
+                    temp.Location = new Point(temp.Location.X, temp.Location.Y + YPos);
+                    EventHistory_panel.Controls.Add(temp);
+
+                    int dataCount = historyDataTable.Select().Length;
+
+                    if (dataCount > 0)
+                    {
+                        DataRow[] rows = historyDataTable.Select();
+                        selectGroupCode = rows[0]["group_code"].ToString();
+                    }
+                    else
+                    {
+                        selectGroupCode = "G01";
+                    }
                 }
 
-                temp.Location = new Point(temp.Location.X, temp.Location.Y + YPos);
-                EventHistory_panel.Controls.Add(temp);
-
-                int dataCount = historyDataTable.Select().Length;
-
-                if (dataCount > 0)
-                {
-                    DataRow[] rows = historyDataTable.Select();
-                    selectGroupCode = rows[0]["group_code"].ToString();
-                }
-                else
-                {
-                    selectGroupCode = "G01";
-                }
             }
         }
 
@@ -499,30 +508,26 @@ namespace WinformTest
                         }
 
                         sensorSignal = data.Trim();
-
-                        string status = "";
-                        if (data.Trim() == "1")
+                        string status = util.SensorDataToStatusCode(data.Trim());
+                        if(data.Trim() == "1" || data.Trim() == "0")
                         {
-                            status = "C";
                             GroupItemClickEvent(sensorGroupCode);
                             JObject json = UpdateRoomStatusItemBySensor(sensorGroupCode, sensorRoomCode, status);
                             UpdateGroupStatusItem();
-                            //AddEventHistoryItem();
-                        }
-                        else if (data.Trim() == "0")
-                        {
-                            status = "O";
-                            GroupItemClickEvent(sensorGroupCode);
-                            JObject json = UpdateRoomStatusItemBySensor(sensorGroupCode, sensorRoomCode, status);
-                            UpdateGroupStatusItem();
-                            //AddEventHistoryItem();
-
+                            AddEventHistoryItem();
                         }
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// 호실 상태정보 수정 및 UserController 수정
+        /// </summary>
+        /// <param name="groupCode">사동코드</param>
+        /// <param name="roomCode">호실코드</param>
+        /// <param name="roomStatus">문상태</param>
+        /// <returns>호실 정보</returns>
         private JObject UpdateRoomStatusItemBySensor(string groupCode, string roomCode, string roomStatus)
         {
             DataTable roomDataTable = dbc.UpdateRoomStatus(groupCode, roomCode, roomStatus);
