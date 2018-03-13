@@ -17,7 +17,7 @@ namespace WinformTest
         private string roomCnt;
         private string doorCnt;
         private string cameraCnt;
-        
+
         /// <summary>
         /// 사동정보 객체 생성
         /// </summary>
@@ -28,7 +28,7 @@ namespace WinformTest
         /// <param name="roomCnt">호실수</param>
         /// <param name="doorCnt">문수</param>
         /// <param name="cameraCnt">카메라수</param>
-        public UC_GroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt)
+        public UC_GroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt, string selectGroupCode)
         {
             InitializeComponent();
 
@@ -48,6 +48,7 @@ namespace WinformTest
             ChangeGroupColor(this.openCnt);
 
             ColorTransparentSetting();
+            SelectedItem(selectGroupCode);
         }
 
         /// <summary>
@@ -103,7 +104,7 @@ namespace WinformTest
             camera_num_label.Text = this.cameraCnt;
             ChangeGroupColor(this.openCnt);
         }
-        
+
         /// <summary>
         /// 사동정보 리턴
         /// </summary>
@@ -145,6 +146,22 @@ namespace WinformTest
             json.Add("groupCode", groupCode);
             json.Add("groupCodeName", groupCodeName);
             this.GroupItemClick(json, new EventArgs());
+        }
+
+        /// <summary>
+        /// 사동 선택 이벤트
+        /// </summary>
+        /// <param name="selectedGroupCode">선택된 사동정보</param>
+        public void SelectedItem(string selectedGroupCode)
+        {
+            if (selectedGroupCode.Equals(this.groupCode))
+            {
+                group_status_border_panel.BackColor = Color.DarkGray;
+            }
+            else
+            {
+                group_status_border_panel.BackColor = Color.Black;
+            }
         }
     }
 }
