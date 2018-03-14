@@ -16,7 +16,7 @@ namespace WinformTest
         private Util util = new Util();
 
         private int groupMargin = Properties.CommonProperties.Default.groupMargin;
-        private static System.Windows.Forms.Timer aTimer = new System.Windows.Forms.Timer();
+        private System.Timers.Timer aTimer = new System.Timers.Timer();
         private System.Timers.Timer sensorTimer = new System.Timers.Timer();
         private string selectGroupCode;
         private string sensorSignal = "";
@@ -44,6 +44,9 @@ namespace WinformTest
             AddGroupStatusItem();
             AddRoomStatusItem();
             SensorSearchTimer();
+
+            aTimer.Interval = 5000;
+            aTimer.Elapsed += new ElapsedEventHandler(Timer_tick);
         }
 
         /// <summary>
@@ -349,14 +352,19 @@ namespace WinformTest
                 aTimer.Stop();
                 aTimer.Start();
             }
+
+            Console.WriteLine("=================== size :: " + list.Count);
         }
 
         
 
         private void Timer_tick(Object source, EventArgs e)
         {
+            Console.WriteLine("========================= Timer Interval =========================");
+
             if (list.Count > 0)
             {
+                Console.WriteLine("=================== preset :: " + list[arrIdx].preset);
                 nvrc.MoveCameraPTZ("2", null, null, list[arrIdx].preset, null);
                 if (arrIdx + 1 == list.Count)
                 {
@@ -372,6 +380,8 @@ namespace WinformTest
                 aTimer.Stop();
                 arrIdx = 0;
             }
+
+            
         }
 
         delegate void SetRoomUserControl();
@@ -537,28 +547,53 @@ namespace WinformTest
                     {
                         if (!String.IsNullOrEmpty(data.Trim()) && data.Trim().Length == 1)
                         {
+                            arrIdx = 0;
                             if (sensorSignal == "")
                             {
                                 isOpenFlag = true;
                             }
-
+                            
                             sensorSignal = data.Trim();
                             string status = util.SensorDataToStatusCode(data.Trim());
 
+                            RoomInfoVO riVo = new RoomInfoVO();
                             nvrc = new NVRControll();
                             GroupItemClickEvent(sensorGroupCode);
                             JObject json = UpdateRoomStatusItemBySensor(sensorGroupCode, sensorRoomCode, status);
+                            riVo.groupCode = json["groupCode"].ToString();
+                            riVo.groupName = json["groupName"].ToString();
+                            riVo.roomCode = json["roomCode"].ToString();
+                            riVo.roomName = json["roomName"].ToString();
+                            riVo.roomStatusName = json["roomStatusName"].ToString();
+                            riVo.roomStatus = json["roomStatus"].ToString();
+                            riVo.preset = json["preset"].ToString();
 
                             UpdateGroupStatusItem();
                             AddEventHistoryItem();
 
+                            Console.WriteLine("========================== test ========================");
                             if(data.Trim() == "1")
                             {
-                                nvrc.MoveCameraPTZ("2", null, null, json["preset"].ToString(), null);
+                                for (int i = 0; i < list.Count; i++)
+                                {
+                                    if (list[i].groupCode.Equals(riVo.groupCode) && list[i].roomCode.Equals(riVo.roomCode))
+                                    {
+                                        list.RemoveAt(i);
+                                    }
+                                }
+
+                                if (list.Count == 0)
+                                {
+                                    nvrc.MoveCameraPTZ("2", null, null, "1", null);
+                                }
                             }
                             else
                             {
-                                nvrc.MoveCameraPTZ("2", null, null, "1", null);
+                                list.Add(riVo);
+                                nvrc.MoveCameraPTZ("2", null, null, json["preset"].ToString(), null);
+                                aTimer.Stop();
+                                aTimer.Start();
+                                
                             }
                         }
                     }
