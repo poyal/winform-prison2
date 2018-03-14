@@ -528,7 +528,6 @@ namespace WinformTest
                     char[] values = data.ToCharArray();
                     int value = Convert.ToInt32(values[0]);
 
-
                     if (data.Trim() != sensorSignal)
                     {
                         if (sensorSignal == "")
@@ -538,12 +537,24 @@ namespace WinformTest
 
                         sensorSignal = data.Trim();
                         string status = util.SensorDataToStatusCode(data.Trim());
-                        if(data.Trim() == "1" || data.Trim() == "0")
+
+                        if (!String.IsNullOrEmpty(data.Trim()))
                         {
+                            nvrc = new NVRControll();
                             GroupItemClickEvent(sensorGroupCode);
                             JObject json = UpdateRoomStatusItemBySensor(sensorGroupCode, sensorRoomCode, status);
+
                             UpdateGroupStatusItem();
                             AddEventHistoryItem();
+
+                            if(data.Trim() == "1")
+                            {
+                                nvrc.MoveCameraPTZ("2", null, null, json["preset"].ToString(), null);
+                            }
+                            else
+                            {
+                                nvrc.MoveCameraPTZ("2", null, null, "1", null);
+                            }
                         }
                     }
                 }
