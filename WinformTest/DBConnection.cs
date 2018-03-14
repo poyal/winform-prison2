@@ -89,7 +89,6 @@ namespace WinformTest
             sql += "     ELSE to_char(room_close_time, 'YYYY-MM-DD HH24:MI:SS') ";
             sql += "     END)                               AS event_time ";
             sql += "FROM room_status_history A ";
-            sql += "WHERE room_status = 'O' ";
             sql += "ORDER BY event_time DESC ";
             sql += "LIMIT 20 ";
 
@@ -119,7 +118,6 @@ namespace WinformTest
             sql += "WHERE A.group_code = B.group_code ";
             sql += "GROUP BY A.group_code ";
             sql += "ORDER BY A.group_code ASC ";
-
 
             DataTable groupDataTable = SelectDataTable(sql);
             return groupDataTable;

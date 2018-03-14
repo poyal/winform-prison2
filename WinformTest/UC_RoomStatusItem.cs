@@ -83,6 +83,15 @@ namespace WinformTest
         }
 
         /// <summary>
+        /// 사동코드 리턴
+        /// </summary>
+        /// <returns>사동코드</returns>
+        public string GetGroupCode()
+        {
+            return this.groupCode;
+        }
+
+        /// <summary>
         /// 호실코드 리턴
         /// </summary>
         /// <returns>호실코드</returns>
@@ -143,8 +152,9 @@ namespace WinformTest
         /// 호실 상태색 변경
         /// </summary>
         /// <param name="roomStatus">호실상태</param>
-        private void RoomColorChange(string roomStatus)
+        public void RoomColorChange(string roomStatus)
         {
+            this.roomStatus = roomStatus;
             if (roomStatus.Equals("O"))
             {
                 room_panel.BackColor = Color.DarkRed;
