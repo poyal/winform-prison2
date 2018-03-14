@@ -48,24 +48,7 @@ namespace WinformTest
             //room_num_label.Text = this.roomCnt;
             //door_num_label.Text = this.doorCnt;
             //camera_num_label.Text = this.cameraCnt;
-            if (!string.IsNullOrEmpty(minRoomName))
-            {
-                int openNum = Int32.Parse(openCnt) - 1;
-                if (openNum > 0)
-                {
-                    min_room_label.Text = string.Format("{0}호실 외 {1}개", minRoomName, openNum);
-                }
-                else
-                {
-                    min_room_label.Text = string.Format("{0}호실", minRoomName);
-
-                }
-                
-            }
-            else
-            {
-                min_room_label.Text = "";
-            }
+            MinRoomTextChange(minRoomName, openCnt);
             ChangeGroupColor(this.openCnt);
 
             ColorTransparentSetting();
@@ -111,37 +94,52 @@ namespace WinformTest
         /// <param name="minRoomName">문열린 낮은 호실명</param>
         public void UpdateGroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt, string minRoomName)
         {
-            this.groupCode = groupCode;
-            this.groupCodeName = groupCodeName;
-            this.openCnt = openCnt;
-            this.groupInmates = groupInmates;
-            this.roomCnt = roomCnt;
-            this.doorCnt = doorCnt;
-            this.cameraCnt = cameraCnt;
-            this.minRoomName = minRoomName;
+                this.groupCode = groupCode;
+                this.groupCodeName = groupCodeName;
+                this.openCnt = openCnt;
+                this.groupInmates = groupInmates;
+                this.roomCnt = roomCnt;
+                this.doorCnt = doorCnt;
+                this.cameraCnt = cameraCnt;
+                this.minRoomName = minRoomName;
 
-            group_name_label.Text = this.groupCodeName;
-            //prison_num_label.Text = this.groupInmates;
-            //room_num_label.Text = this.roomCnt;
-            //door_num_label.Text = this.doorCnt;
-            //camera_num_label.Text = this.cameraCnt;
-            if (!string.IsNullOrEmpty(minRoomName))
+                group_name_label.Text = this.groupCodeName;
+                //prison_num_label.Text = this.groupInmates;
+                //room_num_label.Text = this.roomCnt;
+                //door_num_label.Text = this.doorCnt;
+                //camera_num_label.Text = this.cameraCnt;
+
+                MinRoomTextChange(minRoomName, openCnt);
+                ChangeGroupColor(this.openCnt);
+        }
+
+        delegate void SetUpdateUserControl(string minRoomName, string openCnt);
+        public void MinRoomTextChange(string minRoomName, string openCnt)
+        {
+            if (min_room_label.InvokeRequired)
             {
-                int openNum = Int32.Parse(openCnt) - 1;
-                if (openNum > 0)
-                {
-                    min_room_label.Text = string.Format("{0}호실 외 {1}개", minRoomName, openNum);
-                }
-                else
-                {
-                    min_room_label.Text = string.Format("{0}호실", minRoomName);
-                }
+                SetUpdateUserControl dele = new SetUpdateUserControl(MinRoomTextChange);
+                this.Invoke(dele, new object[] { minRoomName, openCnt });
             }
             else
             {
-                min_room_label.Text = "";
+                if (!string.IsNullOrEmpty(minRoomName))
+                {
+                    int openNum = Int32.Parse(openCnt) - 1;
+                    if (openNum > 0)
+                    {
+                        min_room_label.Text = string.Format("{0}호실 외 {1}개", minRoomName, openNum);
+                    }
+                    else
+                    {
+                        min_room_label.Text = string.Format("{0}호실", minRoomName);
+                    }
+                }
+                else
+                {
+                    min_room_label.Text = "";
+                }
             }
-            ChangeGroupColor(this.openCnt);
         }
 
         /// <summary>
