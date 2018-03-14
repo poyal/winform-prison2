@@ -145,6 +145,11 @@ namespace WinformTest
             JObject json = new JObject();
             json.Add("groupCode", groupCode);
             json.Add("groupCodeName", groupCodeName);
+            json.Add("openCnt", openCnt);
+            json.Add("groupInmates", groupInmates);
+            json.Add("roomCnt", roomCnt);
+            json.Add("doorCnt", doorCnt);
+            json.Add("cameraCnt", cameraCnt);
             this.GroupItemClick(json, new EventArgs());
         }
 

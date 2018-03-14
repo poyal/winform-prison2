@@ -89,6 +89,21 @@ namespace WinformTest
 
                 temp.Location = new Point(temp.Location.X + groupMargin + XPos, temp.Location.Y + 10);
                 group_status_panel.Controls.Add(temp);
+
+                if(groupCode.Equals(selectGroupCode))
+                {
+                    JObject json = new JObject();
+
+                    json.Add("groupCode", groupCode);
+                    json.Add("groupCodeName", groupName);
+                    json.Add("openCnt", openCnt);
+                    json.Add("groupInmates", groupInmates);
+                    json.Add("roomCnt", roomCnt);
+                    json.Add("doorCnt", doorCnt);
+                    json.Add("cameraCnt", cameraCnt);
+
+                    GroupTitleChange(json);
+                }
             }
         }
 
@@ -143,6 +158,20 @@ namespace WinformTest
             JObject json = sender as JObject;
             string groupCode = json["groupCode"].ToString();
             GroupItemClickEvent(groupCode);
+            GroupTitleChange(json);
+        }
+
+        private void GroupTitleChange(JObject json)
+        {
+            string groupCode = json["groupCode"].ToString();
+            string groupCodeName = json["groupCodeName"].ToString();
+            string openCnt = json["openCnt"].ToString();
+            string groupInmates = json["groupInmates"].ToString();
+            string roomCnt = json["roomCnt"].ToString();
+            string doorCnt = json["doorCnt"].ToString();
+            string cameraCnt = json["cameraCnt"].ToString();
+
+            group_title_label.Text = string.Format("{0}}", groupCodeName);
         }
 
         /// <summary>
@@ -164,7 +193,6 @@ namespace WinformTest
         {
             foreach (Control control in this.group_status_panel.Controls)
             {
-                Console.WriteLine(control);
                 if(control is UC_GroupStatusItem)
                 {
                     UC_GroupStatusItem groupControl = control as UC_GroupStatusItem;
@@ -427,7 +455,6 @@ namespace WinformTest
         /// <param name="e"></param>
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-            Console.WriteLine("IN");
             string comportStr = "";
             foreach (string comport in SerialPort.GetPortNames())
             {

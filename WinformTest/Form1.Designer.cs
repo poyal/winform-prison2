@@ -48,6 +48,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.axVLCPlugin21 = new AxAXVLC.AxVLCPlugin2();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.group_title_label = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.room_panel.SuspendLayout();
             this.panel3.SuspendLayout();
             this.menu_panel.SuspendLayout();
@@ -71,6 +73,8 @@
             // 
             this.room_panel.BackColor = System.Drawing.Color.Black;
             this.room_panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.room_panel.Controls.Add(this.label4);
+            this.room_panel.Controls.Add(this.group_title_label);
             this.room_panel.Controls.Add(this.bottom_room_panel);
             this.room_panel.Controls.Add(this.top_room_panel);
             this.room_panel.Controls.Add(this.center_fild_panel);
@@ -226,12 +230,34 @@
             this.axVLCPlugin21.Location = new System.Drawing.Point(0, 2);
             this.axVLCPlugin21.Name = "axVLCPlugin21";
             this.axVLCPlugin21.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axVLCPlugin21.OcxState")));
-            this.axVLCPlugin21.Size = new System.Drawing.Size(469, 299);
+            this.axVLCPlugin21.Size = new System.Drawing.Size(469, 298);
             this.axVLCPlugin21.TabIndex = 0;
             // 
             // serialPort1
             // 
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            // 
+            // group_title_label
+            // 
+            this.group_title_label.AutoSize = true;
+            this.group_title_label.Font = new System.Drawing.Font("Segoe UI Emoji", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.group_title_label.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.group_title_label.Location = new System.Drawing.Point(9, 11);
+            this.group_title_label.Name = "group_title_label";
+            this.group_title_label.Size = new System.Drawing.Size(127, 27);
+            this.group_title_label.TabIndex = 1;
+            this.group_title_label.Text = "GROUP TITLE";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Emoji", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label4.Location = new System.Drawing.Point(9, 40);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 21);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "GROUP INFO";
             // 
             // Form1
             // 
@@ -251,6 +277,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form1";
             this.room_panel.ResumeLayout(false);
+            this.room_panel.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.menu_panel.ResumeLayout(false);
@@ -285,6 +312,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel5;
         private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Label group_title_label;
+        private System.Windows.Forms.Label label4;
     }
 }
 
