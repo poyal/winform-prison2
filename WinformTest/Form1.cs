@@ -83,8 +83,9 @@ namespace WinformTest
                 string roomCnt = row["room_cnt"].ToString();
                 string doorCnt = row["door_cnt"].ToString();
                 string cameraCnt = row["camera_cnt"].ToString();
-
-                var temp = new UC_GroupStatusItem(groupCode, groupName, openCnt, groupInmates, roomCnt, doorCnt, cameraCnt, selectGroupCode);
+                string minRoomName = row["min_room_name"].ToString();
+                
+                var temp = new UC_GroupStatusItem(groupCode, groupName, openCnt, groupInmates, roomCnt, doorCnt, cameraCnt, selectGroupCode, minRoomName);
                 temp.GroupItemClick += new EventHandler(Group_Item_Click);
                 int XPos = 0;
                 foreach (Control item in group_status_panel.Controls)
@@ -132,6 +133,7 @@ namespace WinformTest
                     string roomCnt = "";
                     string doorCnt = "";
                     string cameraCnt = "";
+                    string minRoomName = "";
 
 
                     foreach (DataRow row in groupDataTable.Rows)
@@ -145,10 +147,11 @@ namespace WinformTest
                             roomCnt = row["room_cnt"].ToString();
                             doorCnt = row["door_cnt"].ToString();
                             cameraCnt = row["camera_cnt"].ToString();
+                            minRoomName = row["min_room_name"].ToString();
                         }
                     }
 
-                    groupControl.UpdateGroupStatusItem(groupCode, groupName, openCnt, groupInmates, roomCnt, doorCnt, cameraCnt);
+                    groupControl.UpdateGroupStatusItem(groupCode, groupName, openCnt, groupInmates, roomCnt, doorCnt, cameraCnt, minRoomName);
                 }
             }
         }

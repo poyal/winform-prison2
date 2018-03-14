@@ -115,7 +115,12 @@ namespace WinformTest
             sql += "  COUNT(CASE ";
             sql += "        WHEN B.room_status = 'O' ";
             sql += "          THEN ";
-            sql += "            '1' END)    AS open_cnt ";
+            sql += "            '1' END)    AS open_cnt, ";
+            sql += "  MIN(CASE ";
+            sql += "        WHEN B.room_status = 'O' ";
+            sql += "          THEN ";
+            sql += "            FLOAT8(B.room_name) ";
+            sql += "         END)           AS min_room_name ";
             sql += "FROM group_info A, room_info B ";
             sql += "WHERE A.group_code = B.group_code ";
             sql += "GROUP BY A.group_code ";
