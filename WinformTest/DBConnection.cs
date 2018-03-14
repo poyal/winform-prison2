@@ -119,7 +119,6 @@ namespace WinformTest
             sql += "GROUP BY A.group_code ";
             sql += "ORDER BY A.group_code ASC ";
 
-
             DataTable groupDataTable = SelectDataTable(sql);
             return groupDataTable;
         }
