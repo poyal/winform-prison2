@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using System;
 using System.Data;
 
 namespace WinformTest
@@ -45,6 +46,7 @@ namespace WinformTest
         public void Update(string sql)
         {
             query = new NpgsqlCommand(sql, conn);
+            Console.WriteLine(sql);
             query.ExecuteNonQuery();
             query.Dispose();
         }

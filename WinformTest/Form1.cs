@@ -535,16 +535,16 @@ namespace WinformTest
 
                     if (data.Trim() != sensorSignal)
                     {
-                        if (sensorSignal == "")
+                        if (!String.IsNullOrEmpty(data.Trim()) && data.Trim().Length == 1)
                         {
-                            isOpenFlag = true;
-                        }
+                            if (sensorSignal == "")
+                            {
+                                isOpenFlag = true;
+                            }
 
-                        sensorSignal = data.Trim();
-                        string status = util.SensorDataToStatusCode(data.Trim());
+                            sensorSignal = data.Trim();
+                            string status = util.SensorDataToStatusCode(data.Trim());
 
-                        if (!String.IsNullOrEmpty(data.Trim()))
-                        {
                             nvrc = new NVRControll();
                             GroupItemClickEvent(sensorGroupCode);
                             JObject json = UpdateRoomStatusItemBySensor(sensorGroupCode, sensorRoomCode, status);
