@@ -173,7 +173,8 @@ namespace WinformTest
             string doorCnt = json["doorCnt"].ToString();
             string cameraCnt = json["cameraCnt"].ToString();
 
-            //group_title_label.Text = string.Format("{0}}", groupCodeName);
+            group_title_label.Text = string.Format("{0}", groupCodeName);
+            group_info_label.Text = string.Format("수감인원: {0} / 호실수: {1} / 도어수: {2} / 카메라수: {3}", groupInmates, roomCnt, doorCnt, cameraCnt);
         }
 
         /// <summary>
