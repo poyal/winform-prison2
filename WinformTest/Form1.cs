@@ -163,6 +163,10 @@ namespace WinformTest
             GroupTitleChange(json);
         }
 
+        /// <summary>
+        /// 사동 변경
+        /// </summary>
+        /// <param name="json">사동정보</param>
         private void GroupTitleChange(JObject json)
         {
             string groupCode = json["groupCode"].ToString();
