@@ -17,6 +17,7 @@ namespace WinformTest
         private string roomCnt;
         private string doorCnt;
         private string cameraCnt;
+        private string minRoomName;
 
         /// <summary>
         /// 사동정보 객체 생성
@@ -28,7 +29,8 @@ namespace WinformTest
         /// <param name="roomCnt">호실수</param>
         /// <param name="doorCnt">문수</param>
         /// <param name="cameraCnt">카메라수</param>
-        public UC_GroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt, string selectGroupCode)
+        /// <param name="minRoomName">문열린 낮은 호실명</param>
+        public UC_GroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt, string selectGroupCode, string minRoomName)
         {
             InitializeComponent();
 
@@ -39,12 +41,31 @@ namespace WinformTest
             this.roomCnt = roomCnt;
             this.doorCnt = doorCnt;
             this.cameraCnt = cameraCnt;
+            this.minRoomName = minRoomName;
 
             group_name_label.Text = this.groupCodeName;
-            prison_num_label.Text = this.groupInmates;
-            room_num_label.Text = this.roomCnt;
-            door_num_label.Text = this.doorCnt;
-            camera_num_label.Text = this.cameraCnt;
+            //prison_num_label.Text = this.groupInmates;
+            //room_num_label.Text = this.roomCnt;
+            //door_num_label.Text = this.doorCnt;
+            //camera_num_label.Text = this.cameraCnt;
+            if (!string.IsNullOrEmpty(minRoomName))
+            {
+                int openNum = Int32.Parse(openCnt) - 1;
+                if (openNum > 0)
+                {
+                    min_room_label.Text = string.Format("{0}호실 외 {1}개", minRoomName, openNum);
+                }
+                else
+                {
+                    min_room_label.Text = string.Format("{0}호실", minRoomName);
+
+                }
+                
+            }
+            else
+            {
+                min_room_label.Text = "";
+            }
             ChangeGroupColor(this.openCnt);
 
             ColorTransparentSetting();
@@ -57,24 +78,24 @@ namespace WinformTest
         private void ColorTransparentSetting()
         {
             group_name_label.BackColor = Color.Transparent;
-            prison_name_label.BackColor = Color.Transparent;
-            prison_num_label.BackColor = Color.Transparent;
-            room_name_label.BackColor = Color.Transparent;
-            room_num_label.BackColor = Color.Transparent;
-            door_num_label.BackColor = Color.Transparent;
-            door_name_label.BackColor = Color.Transparent;
-            camera_name_label.BackColor = Color.Transparent;
-            camera_num_label.BackColor = Color.Transparent;
+            //prison_name_label.BackColor = Color.Transparent;
+            //prison_num_label.BackColor = Color.Transparent;
+            //room_name_label.BackColor = Color.Transparent;
+            //room_num_label.BackColor = Color.Transparent;
+            //door_num_label.BackColor = Color.Transparent;
+            //door_name_label.BackColor = Color.Transparent;
+            //camera_name_label.BackColor = Color.Transparent;
+            //camera_num_label.BackColor = Color.Transparent;
 
             group_name_label.Parent = group_status_panel;
-            prison_name_label.Parent = group_status_panel;
-            prison_num_label.Parent = group_status_panel;
-            room_name_label.Parent = group_status_panel;
-            room_num_label.Parent = group_status_panel;
-            door_num_label.Parent = group_status_panel;
-            door_name_label.Parent = group_status_panel;
-            camera_name_label.Parent = group_status_panel;
-            camera_num_label.Parent = group_status_panel;
+            //prison_name_label.Parent = group_status_panel;
+            //prison_num_label.Parent = group_status_panel;
+            //room_name_label.Parent = group_status_panel;
+            //room_num_label.Parent = group_status_panel;
+            //door_num_label.Parent = group_status_panel;
+            //door_name_label.Parent = group_status_panel;
+            //camera_name_label.Parent = group_status_panel;
+            //camera_num_label.Parent = group_status_panel;
         }
 
         /// <summary>
@@ -87,7 +108,8 @@ namespace WinformTest
         /// <param name="roomCnt">호실수</param>
         /// <param name="doorCnt">문수</param>
         /// <param name="cameraCnt">카메라수</param>
-        public void UpdateGroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt)
+        /// <param name="minRoomName">문열린 낮은 호실명</param>
+        public void UpdateGroupStatusItem(string groupCode, string groupCodeName, string openCnt, string groupInmates, string roomCnt, string doorCnt, string cameraCnt, string minRoomName)
         {
             this.groupCode = groupCode;
             this.groupCodeName = groupCodeName;
@@ -96,12 +118,29 @@ namespace WinformTest
             this.roomCnt = roomCnt;
             this.doorCnt = doorCnt;
             this.cameraCnt = cameraCnt;
+            this.minRoomName = minRoomName;
 
             group_name_label.Text = this.groupCodeName;
-            prison_num_label.Text = this.groupInmates;
-            room_num_label.Text = this.roomCnt;
-            door_num_label.Text = this.doorCnt;
-            camera_num_label.Text = this.cameraCnt;
+            //prison_num_label.Text = this.groupInmates;
+            //room_num_label.Text = this.roomCnt;
+            //door_num_label.Text = this.doorCnt;
+            //camera_num_label.Text = this.cameraCnt;
+            if (!string.IsNullOrEmpty(minRoomName))
+            {
+                int openNum = Int32.Parse(openCnt) - 1;
+                if (openNum > 0)
+                {
+                    min_room_label.Text = string.Format("{0}호실 외 {1}개", minRoomName, openNum);
+                }
+                else
+                {
+                    min_room_label.Text = string.Format("{0}호실", minRoomName);
+                }
+            }
+            else
+            {
+                min_room_label.Text = "";
+            }
             ChangeGroupColor(this.openCnt);
         }
 
