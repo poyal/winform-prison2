@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
+using WinformTest.VO;
 
 namespace WinformTest
 {
@@ -104,16 +105,16 @@ namespace WinformTest
         {
             DataTable roomDataTable = RoomStatusChange();
             DataRow[] rows = roomDataTable.Select();
-            JObject json = new JObject();
-            json.Add("groupCode", rows[0]["group_code"].ToString());
-            json.Add("groupName", rows[0]["group_name"].ToString());
-            json.Add("roomName", rows[0]["room_name"].ToString());
-            json.Add("roomCode", rows[0]["room_code"].ToString());
-            json.Add("roomStatus", rows[0]["room_status"].ToString());
-            json.Add("roomStatusName", rows[0]["room_status_name"].ToString());
-            json.Add("updatTime", rows[0]["updat_time"].ToString());
-            json.Add("preset", rows[0]["preset"].ToString());
-            this.RoomItemClick(json, new EventArgs());
+            RoomInfoVO riVo = new RoomInfoVO();
+            riVo.groupCode = rows[0]["group_code"].ToString();
+            riVo.groupName = rows[0]["group_name"].ToString();
+            riVo.roomCode = rows[0]["room_code"].ToString();
+            riVo.roomName = rows[0]["room_name"].ToString();
+            riVo.roomStatusName = rows[0]["room_status_name"].ToString();
+            riVo.roomStatus = rows[0]["room_status"].ToString();
+            riVo.preset = rows[0]["preset"].ToString();
+
+            this.RoomItemClick(riVo, new EventArgs());
         }
 
         /// <summary>

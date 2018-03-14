@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Timers;
 using System.Windows.Forms;
+using WinformTest.VO;
 
 namespace WinformTest
 {
@@ -16,7 +18,7 @@ namespace WinformTest
         private static System.Windows.Forms.Timer aTimer = new System.Windows.Forms.Timer();
         private string selectGroupCode;
 
-        JArray jArray = new JArray();
+        List<RoomInfoVO> list = new List<RoomInfoVO>();
         NVRControll nvrc;
         int arrIdx = 0;
 
@@ -266,6 +268,7 @@ namespace WinformTest
             }
         }
 
+
         /// <summary>
         /// 각 호실 클릭 이벤트
         /// </summary>
@@ -273,43 +276,43 @@ namespace WinformTest
         {
             arrIdx = 0;
             UpdateGroupStatusItem();
-            JObject json = sender as JObject;
+            RoomInfoVO riVo = sender as RoomInfoVO;
             nvrc = new NVRControll();
 
             AddEventHistoryItem();
 
-            if ("C".Equals(json.GetValue("roomStatus").ToString()))
+            if ("C".Equals(riVo.roomStatus))
             {
-                for(int i=0;i<jArray.Count; i++)
+                for (int i = 0; i < list.Count; i++)
                 {
-                    JObject jobj = (JObject)jArray[i];
-                    if (jobj["groupCode"].ToString().Equals(jobj["groupCode"].ToString()) && 
-                        jobj["roomCode"].ToString().Equals(jobj["roomCode"].ToString()))
+                    if (list[i].groupCode.Equals(riVo.groupCode) && list[i].roomCode.Equals(riVo.roomCode))
                     {
-                        jArray.RemoveAt(i);
+                        list.RemoveAt(i);
                     }
                 }
-                nvrc.MoveCameraPTZ("2", null, null, "1", null);
+                
+                if(list.Count == 0)
+                {
+                    nvrc.MoveCameraPTZ("2", null, null, "1", null);
+                }
             }
             else
             {
-                jArray.Add(json);
-                nvrc.MoveCameraPTZ("2", null, null, json.GetValue("preset").ToString(), null);
+                list.Add(riVo);
+                nvrc.MoveCameraPTZ("2", null, null, riVo.preset, null);
+                aTimer.Stop();
+                aTimer.Start();
             }
-
-            aTimer.Stop();
-            aTimer.Start();
         }
 
         
 
         private void Timer_tick(Object source, EventArgs e)
         {
-            if(jArray.Count > 0)
+            if (list.Count > 0)
             {
-                nvrc.MoveCameraPTZ("2", null, null, jArray[arrIdx]["preset"].ToString(), null);
-
-                if (arrIdx + 1 == jArray.Count)
+                nvrc.MoveCameraPTZ("2", null, null, list[arrIdx].preset, null);
+                if (arrIdx + 1 == list.Count)
                 {
                     arrIdx = 0;
                 }
@@ -380,7 +383,6 @@ namespace WinformTest
             string userPw = Properties.NVRAccessProperties.Default.NVR_USER_PW;
             string nvrIp = Properties.NVRAccessProperties.Default.NVR_IP;
 
-            Console.WriteLine("header :: " + rtspHeader + userName + ":" + userPw + "@" + nvrIp + "/" + channel + "/high");
             axVLCPlugin21.playlist.add(rtspHeader + userName + ":" + userPw + "@" + nvrIp + "/" + channel + "/high", null, null);
             axVLCPlugin21.playlist.next();
             axVLCPlugin21.playlist.play();
